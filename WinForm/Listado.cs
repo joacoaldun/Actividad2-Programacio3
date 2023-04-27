@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Negocio;
+using Dominio;
 
 namespace WinForm
 {
     public partial class Listado : Form
     {
+
+        List<Articulo> listaArticulos = new List<Articulo>();
+        
+
         public Listado()
         {
             InitializeComponent();
@@ -22,6 +28,15 @@ namespace WinForm
         {
             MenuInicio principal = new MenuInicio();
             principal.Hide();
+
+
+
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            listaArticulos = negocio.listar();
+            dgvListaArticulos.DataSource = listaArticulos;
+           //dgvListaArticulos.Columns["imagen"].Visible = false;
+            //cargarImagen(Listapokemon[0].UrlImagen);
+
 
 
 
