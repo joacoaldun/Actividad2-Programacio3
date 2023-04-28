@@ -29,14 +29,14 @@
         private void InitializeComponent()
         {
             this.dgvListaArticulos = new System.Windows.Forms.DataGridView();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pbxArticulo = new System.Windows.Forms.PictureBox();
             this.btnVolverMenu = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSalir = new System.Windows.Forms.Button();
-            this.btnAtras = new System.Windows.Forms.Button();
-            this.btnSig = new System.Windows.Forms.Button();
+            this.btnIzquierda = new System.Windows.Forms.Button();
+            this.btnDerecha = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaArticulos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxArticulo)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvListaArticulos
@@ -44,20 +44,23 @@
             this.dgvListaArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListaArticulos.Location = new System.Drawing.Point(48, 68);
             this.dgvListaArticulos.Name = "dgvListaArticulos";
-            this.dgvListaArticulos.Size = new System.Drawing.Size(434, 269);
+            this.dgvListaArticulos.Size = new System.Drawing.Size(642, 269);
             this.dgvListaArticulos.TabIndex = 0;
+            this.dgvListaArticulos.SelectionChanged += new System.EventHandler(this.dgvListaArticulos_SelectionChanged);
+            this.dgvListaArticulos.DoubleClick += new System.EventHandler(this.dgvListaArticulos_DoubleClick);
             // 
-            // pictureBox1
+            // pbxArticulo
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(525, 68);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(224, 269);
-            this.pictureBox1.TabIndex = 1;
-            this.pictureBox1.TabStop = false;
+            this.pbxArticulo.Location = new System.Drawing.Point(753, 68);
+            this.pbxArticulo.Name = "pbxArticulo";
+            this.pbxArticulo.Size = new System.Drawing.Size(224, 269);
+            this.pbxArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxArticulo.TabIndex = 1;
+            this.pbxArticulo.TabStop = false;
             // 
             // btnVolverMenu
             // 
-            this.btnVolverMenu.Location = new System.Drawing.Point(89, 384);
+            this.btnVolverMenu.Location = new System.Drawing.Point(174, 384);
             this.btnVolverMenu.Name = "btnVolverMenu";
             this.btnVolverMenu.Size = new System.Drawing.Size(152, 26);
             this.btnVolverMenu.TabIndex = 2;
@@ -77,7 +80,7 @@
             // 
             // btnSalir
             // 
-            this.btnSalir.Location = new System.Drawing.Point(289, 384);
+            this.btnSalir.Location = new System.Drawing.Point(394, 384);
             this.btnSalir.Name = "btnSalir";
             this.btnSalir.Size = new System.Drawing.Size(134, 26);
             this.btnSalir.TabIndex = 4;
@@ -85,43 +88,45 @@
             this.btnSalir.UseVisualStyleBackColor = true;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
-            // btnAtras
+            // btnIzquierda
             // 
-            this.btnAtras.Location = new System.Drawing.Point(585, 356);
-            this.btnAtras.Name = "btnAtras";
-            this.btnAtras.Size = new System.Drawing.Size(40, 22);
-            this.btnAtras.TabIndex = 5;
-            this.btnAtras.Text = "button";
-            this.btnAtras.UseVisualStyleBackColor = true;
+            this.btnIzquierda.Location = new System.Drawing.Point(816, 356);
+            this.btnIzquierda.Name = "btnIzquierda";
+            this.btnIzquierda.Size = new System.Drawing.Size(40, 22);
+            this.btnIzquierda.TabIndex = 5;
+            this.btnIzquierda.Text = "<";
+            this.btnIzquierda.UseVisualStyleBackColor = true;
+            this.btnIzquierda.Click += new System.EventHandler(this.btnIzquierda_Click);
             // 
-            // btnSig
+            // btnDerecha
             // 
-            this.btnSig.Location = new System.Drawing.Point(642, 356);
-            this.btnSig.Name = "btnSig";
-            this.btnSig.Size = new System.Drawing.Size(43, 22);
-            this.btnSig.TabIndex = 6;
-            this.btnSig.Text = "button2";
-            this.btnSig.UseVisualStyleBackColor = true;
+            this.btnDerecha.Location = new System.Drawing.Point(879, 356);
+            this.btnDerecha.Name = "btnDerecha";
+            this.btnDerecha.Size = new System.Drawing.Size(43, 22);
+            this.btnDerecha.TabIndex = 6;
+            this.btnDerecha.Text = ">";
+            this.btnDerecha.UseVisualStyleBackColor = true;
+            this.btnDerecha.Click += new System.EventHandler(this.btnDerecha_Click);
             // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnSig);
-            this.Controls.Add(this.btnAtras);
+            this.ClientSize = new System.Drawing.Size(1031, 506);
+            this.Controls.Add(this.btnDerecha);
+            this.Controls.Add(this.btnIzquierda);
             this.Controls.Add(this.btnSalir);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnVolverMenu);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.pbxArticulo);
             this.Controls.Add(this.dgvListaArticulos);
             this.Name = "Listado";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Listado";
             this.Load += new System.EventHandler(this.Listado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaArticulos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxArticulo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -130,11 +135,11 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvListaArticulos;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pbxArticulo;
         private System.Windows.Forms.Button btnVolverMenu;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.Button btnAtras;
-        private System.Windows.Forms.Button btnSig;
+        private System.Windows.Forms.Button btnIzquierda;
+        private System.Windows.Forms.Button btnDerecha;
     }
 }

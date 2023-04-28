@@ -10,23 +10,23 @@ namespace Negocio
     public class AccesoDatos
     {
 
-
         private SqlConnection conexion;
         private SqlCommand comando;
         private SqlDataReader lector;
-
         public SqlDataReader Lector
         {
             get { return lector; }
         }
-        public AccesoDatos()
-        {
 
-            conexion = new SqlConnection("server=.\\SQLLaboratorio; database=CATALOGO_P3_DB; integrated security=true;");
-            comando = new SqlCommand();
+        //CONEXION A BD
+        public AccesoDatos()
+        {   
+           conexion = new SqlConnection("server=.\\SQLExpress; database=CATALOGO_P3_DB; integrated security=true;");
+           comando = new SqlCommand();
 
         }
 
+        //SETEAR CONSULTA
         public void setearConsulta(string consulta)
         {
 
@@ -34,6 +34,7 @@ namespace Negocio
             comando.CommandText = consulta;
         }
 
+        //EJECUTAR CONSULTA
         public void ejecutarConsulta()
         {
             comando.Connection = conexion;
@@ -41,7 +42,7 @@ namespace Negocio
             try
             {
                 conexion.Open();
-                //EJECUTO LA LECTURA
+                //EJECUTAR LECTURA
                 lector = comando.ExecuteReader();
 
 
@@ -55,6 +56,7 @@ namespace Negocio
 
         }
 
+        //CERRAR CONEXION
         public void cerrarConexion()
         {
 

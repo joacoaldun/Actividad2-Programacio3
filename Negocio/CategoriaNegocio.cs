@@ -10,5 +10,6 @@ namespace Negocio
 {
     internal class CategoriaNegocio
     {
+        public string categoriaNegocio { get; set; }
     }
 }

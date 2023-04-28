@@ -18,8 +18,13 @@ namespace Dominio
         public Marca Marcas { get; set; }
 
         public Categoria Categorias { get; set; }
-
-        public List<string> Imagenes { get; set;}
+        //Lista de imagenes por si hay mas de 1
+        public List<string> imagenes { get; set; }
+        public Articulo()
+        {
+            imagenes = new List<string>();
+        }
+        
 
     }
 }

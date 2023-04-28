@@ -19,6 +19,7 @@ namespace WinForm
           
         }
 
+        //BOTONES
         private void btnListado_Click(object sender, EventArgs e)
         {
 
@@ -28,15 +29,6 @@ namespace WinForm
             this.Close();
 
 
-
-
-
-
-
-
-
-
-
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -44,7 +36,8 @@ namespace WinForm
             this.Close();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+       
+        private void label1_Click(object sender, EventArgs e)
         {
 
         }
