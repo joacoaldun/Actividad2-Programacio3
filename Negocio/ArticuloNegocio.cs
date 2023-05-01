@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using Dominio;
 using System.Xml.Linq;
 using System.Net;
+using static System.Net.Mime.MediaTypeNames;
+using System.IO;
 
 namespace Negocio
 {
@@ -26,14 +28,14 @@ namespace Negocio
 
                 while (datos.Lector.Read())
                 {
-
-                    string codigoArt = (string)datos.Lector["Codigo"];
-                    string descripcion = (string)datos.Lector["DescripcionArticulo"];
-                    decimal precio = (decimal)datos.Lector["Precio"];
-                    string nombre = (string)datos.Lector["Nombre"];
-                    string urlImagen = (string)datos.Lector["imagen"];
+                    //Validaciones BD
+                    string codigoArt = datos.Lector["Codigo"]==DBNull.Value?"Sin codigo": (string)datos.Lector["Codigo"];
+                    string descripcion = datos.Lector["DescripcionArticulo"]==DBNull.Value?"Sin descripcion": (string)datos.Lector["DescripcionArticulo"];
+                    decimal precio = datos.Lector["Precio"]==DBNull.Value? 0:(decimal)datos.Lector["Precio"];
+                    string nombre = datos.Lector["Nombre"]==DBNull.Value?"Sin nombre": (string)datos.Lector["Nombre"];
+                    string urlImagen = datos.Lector["imagen"] == DBNull.Value ? "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" : (string)datos.Lector["imagen"];
                     string categorias = datos.Lector["NombreCategoria"]==DBNull.Value? "Sin categoria": (string)datos.Lector["NombreCategoria"];
-                    string marcas= (string)datos.Lector["NombreMarca"];
+                    string marcas= datos.Lector["NombreMarca"]==DBNull.Value? "Sin marca": (string)datos.Lector["NombreMarca"];
                     
 
                     //Verificamos si el articulo existe

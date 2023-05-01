@@ -21,9 +21,13 @@ namespace WinForm
 
         public Listado()
         {
-            InitializeComponent();
-        }
 
+            InitializeComponent();
+            this.Text = string.Empty;
+            this.ControlBox = false;
+        }
+       
+        
         //INICIALIZAMOS INDICE
         private int indiceImagenActual;
         private int imagenActual = 0;
@@ -31,11 +35,11 @@ namespace WinForm
         //LOAD DE LISTADO
         private void Listado_Load(object sender, EventArgs e)
         {
-            MenuInicio principal = new MenuInicio();
-            principal.Hide();
-
+            //MenuPrincipal principal = new MenuPrincipal();
+            //principal.Hide();
             ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulos = negocio.listar();
+
 
             if (listaArticulos.Count > 0 && listaArticulos[0].imagenes.Count > 0)
             {
@@ -98,7 +102,7 @@ namespace WinForm
                             }
                         }
                     }
-                    catch (WebException ex)
+                    catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
                         string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
@@ -113,18 +117,8 @@ namespace WinForm
 
 
         //BOTONES
-        private void btnSalir_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+       
 
-        private void btnVolverMenu_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            MenuInicio listado = new MenuInicio();
-            listado.ShowDialog();
-            this.Close();
-        }
 
         private void btnIzquierda_Click(object sender, EventArgs e)
         {
@@ -140,14 +134,27 @@ namespace WinForm
                     }
                     string url = listaArticulos[rowIndex].imagenes[imagenActual];
                     string urlEscapada = Uri.EscapeUriString(url);
-                    using (var webClient = new System.Net.WebClient())
+                    try
                     {
-                        var imagenDescargada = webClient.DownloadData(urlEscapada);
-                        using (var stream = new MemoryStream(imagenDescargada))
+                        using (var webClient = new System.Net.WebClient())
                         {
-                            pbxArticulo.Image = Image.FromStream(stream);
+                            var imagenDescargada = webClient.DownloadData(urlEscapada);
+                            using (var stream = new MemoryStream(imagenDescargada))
+                            {
+                                pbxArticulo.Image = Image.FromStream(stream);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        // Construir la ruta de la imagen de respaldo 
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+
+                        // Cargar la imagen 
+                        pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                    }
+
+
                 }
             }
         }
@@ -171,14 +178,27 @@ namespace WinForm
                     }
                     string url = listaArticulos[rowIndex].imagenes[imagenActual];
                     string urlEscapada = Uri.EscapeUriString(url);
-                    using (var webClient = new System.Net.WebClient())
+                    try
                     {
-                        var imagenDescargada = webClient.DownloadData(urlEscapada);
-                        using (var stream = new MemoryStream(imagenDescargada))
+                        using (var webClient = new System.Net.WebClient())
                         {
-                            pbxArticulo.Image = Image.FromStream(stream);
+                            var imagenDescargada = webClient.DownloadData(urlEscapada);
+                            using (var stream = new MemoryStream(imagenDescargada))
+                            {
+                                pbxArticulo.Image = Image.FromStream(stream);
+                            }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        // Construir la ruta de la imagen de respaldo 
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+
+                        // Cargar la imagen 
+                        pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                    }
+
+                    
                 }
             }
         }
