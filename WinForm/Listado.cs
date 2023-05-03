@@ -35,31 +35,7 @@ namespace WinForm
         //LOAD DE LISTADO
         private void Listado_Load(object sender, EventArgs e)
         {
-            //MenuPrincipal principal = new MenuPrincipal();
-            //principal.Hide();
-            ArticuloNegocio negocio = new ArticuloNegocio();
-            listaArticulos = negocio.listar();
-
-
-            if (listaArticulos.Count > 0 && listaArticulos[0].imagenes.Count > 0)
-            {
-                string url = listaArticulos[0].imagenes[0];
-                string urlEscapada = Uri.EscapeUriString(url);
-                using (var webClient = new System.Net.WebClient())
-                {
-                    var imagenDescargada = webClient.DownloadData(urlEscapada);
-                    using (var stream = new MemoryStream(imagenDescargada))
-                    {
-                        pbxArticulo.Image = Image.FromStream(stream);
-                    }
-                }
-            }
-            else
-            {
-                MessageBox.Show("No hay artículos o imágenes disponibles para mostrar.");
-            }
-            dgvListaArticulos.DataSource = listaArticulos;
-
+            cargar();
         }
 
         //CARGAMOS IMAGEN EN PBX
@@ -105,10 +81,12 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+
+
                     }
                 }
             }
@@ -148,7 +126,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -192,7 +170,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -206,6 +184,47 @@ namespace WinForm
         private void dgvListaArticulos_DoubleClick(object sender, EventArgs e)
         {
             MessageBox.Show("No hay nada por aqui...");
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            
+            AgregarArticulo agregarArticulo = new AgregarArticulo();
+            agregarArticulo.ShowDialog();
+            cargar();
+
+
+
+            
+        }
+
+        private void cargar() {
+
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            listaArticulos = negocio.listar();
+
+
+            if (listaArticulos.Count > 0 && listaArticulos[0].imagenes.Count > 0)
+            {
+                string url = listaArticulos[0].imagenes[0];
+                string urlEscapada = Uri.EscapeUriString(url);
+                using (var webClient = new System.Net.WebClient())
+                {
+                    var imagenDescargada = webClient.DownloadData(urlEscapada);
+                    using (var stream = new MemoryStream(imagenDescargada))
+                    {
+                        pbxArticulo.Image = Image.FromStream(stream);
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("No hay artículos o imágenes disponibles para mostrar.");
+            }
+            dgvListaArticulos.DataSource = listaArticulos;
+            //dgvListaArticulos.Columns["Id"].Visible = false;
+
+
         }
     }
 }

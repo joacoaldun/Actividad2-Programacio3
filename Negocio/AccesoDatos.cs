@@ -21,7 +21,7 @@ namespace Negocio
         //CONEXION A BD
         public AccesoDatos()
         {   
-           conexion = new SqlConnection("server=.\\SQLExpress; database=CATALOGO_P3_DB; integrated security=true;");
+           conexion = new SqlConnection("server=.\\SQLLaboratorio; database=CATALOGO_P3_DB; integrated security=true;");
            comando = new SqlCommand();
 
         }
@@ -67,8 +67,32 @@ namespace Negocio
 
 
         }
+        //EN VEZ DE EJECUTAR UNA CONSULTA, EJECUTA UNA ACCION CONTRA BASE DE DATOS(MANDA DATOS)
+        public void ejecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
 
 
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+
+        }
+
+        //SETEAMOS LOS PARAMETROS PARA LA CARGA Y MODIFICACION DE ARTICULOS CONTRA LA BASE DE DATOS
+        public void setearParametros(string nombre, object valor)
+        {
+            comando.Parameters.AddWithValue(nombre, valor);
+
+        }
 
     }
 }

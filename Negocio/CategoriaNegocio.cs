@@ -8,8 +8,50 @@ using Dominio;
 
 namespace Negocio
 {
-    internal class CategoriaNegocio
+    public class CategoriaNegocio
     {
-        public string categoriaNegocio { get; set; }
+        public List<Categoria> listar()
+        {
+
+            List<Categoria> lista = new List<Categoria>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("select id, descripcion from CATEGORIAS");
+                datos.ejecutarConsulta();
+
+                while (datos.Lector.Read())
+                {
+
+                    Categoria aux = new Categoria();
+
+                    aux.Id = (int)datos.Lector["id"];
+                    aux.NombreCategoria = (string)datos.Lector["descripcion"];
+
+                    lista.Add(aux);
+
+                }
+
+
+
+
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
+
+        }
     }
 }
