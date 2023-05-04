@@ -25,6 +25,7 @@ namespace WinForm
             InitializeComponent();
             this.Text = string.Empty;
             this.ControlBox = false;
+            this.FormBorderStyle = FormBorderStyle.None;
         }
        
         

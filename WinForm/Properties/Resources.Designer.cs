@@ -113,6 +113,16 @@ namespace WinForm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_expand_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-expand-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_go_back_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-go-back-50", resourceCulture);
@@ -183,9 +193,39 @@ namespace WinForm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_subtract_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-subtract-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap icons8_welcome_back_100 {
             get {
                 object obj = ResourceManager.GetObject("icons8-welcome-back-100", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_xbox_x_25 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-xbox-x-25", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_xbox_x_251 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-xbox-x-251", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

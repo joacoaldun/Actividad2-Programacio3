@@ -9,6 +9,7 @@ using System.Xml.Linq;
 using System.Net;
 using static System.Net.Mime.MediaTypeNames;
 using System.IO;
+using System.Security.Cryptography;
 
 namespace Negocio
 {
@@ -24,6 +25,7 @@ namespace Negocio
                 datos.setearConsulta("SELECT a.Id, Codigo, Nombre, a.Descripcion as DescripcionArticulo, Precio, m.Descripcion as NombreMarca, c.Descripcion as NombreCategoria, i.ImagenUrl as imagen from ARTICULOS a \r\ninner join MARCAS m on a.IdMarca=m.Id\r\nleft join CATEGORIAS c on a.IdCategoria=c.Id\r\nleft join IMAGENES i on a.Id=i.IdArticulo ");
                 datos.ejecutarConsulta();
                 List<Articulo> lista = new List<Articulo>();
+                
                 
 
                 while (datos.Lector.Read())

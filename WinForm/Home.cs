@@ -15,7 +15,8 @@ namespace WinForm
         public Home()
         {
             InitializeComponent();
-            
+            this.FormBorderStyle = FormBorderStyle.None;
+
 
         }
 

@@ -18,6 +18,7 @@ namespace WinForm
             InitializeComponent();
             this.Text = string.Empty;
             this.ControlBox = false;
+            this.FormBorderStyle = FormBorderStyle.None;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;//Limita el area para mover la ventana
         }
 
@@ -95,6 +96,14 @@ namespace WinForm
             ReleaseCapture();
             SendMessage(this.Handle, 0x112, 0xf012, 0);
         }
+
+        private void lblTitulo_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+
         //BOTONES
         private void btnClose_Click(object sender, EventArgs e)
         {
@@ -154,7 +163,7 @@ namespace WinForm
             ventana.Show(); // EL SHOWDIALOG NO FUNCIONA CON EL MDIPARENT
         }
 
-      
+       
     }
     
 }

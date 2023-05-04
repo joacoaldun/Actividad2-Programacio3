@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -18,8 +19,36 @@ namespace WinForm
         public AgregarArticulo()
         {
             InitializeComponent();
+            this.FormBorderStyle= FormBorderStyle.None;
+            this.ControlBox = false;
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;//Limita el area para mover la ventana
+            //MOVER VENTANA
+            
+         
+            
         }
 
+        //MOVER VENTANA
+        //Para que el panel superior maneje el movimiento de la ventana
+
+        [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
+        private extern static void ReleaseCapture();
+
+        [DllImport("user32.DLL", EntryPoint = "SendMessage")]
+        private extern static void SendMessage(System.IntPtr hWnd, int wMsg, int wParam, int Iparam);
+        private void panel1_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        private void label8_MouseDown(object sender, MouseEventArgs e)
+        {
+            ReleaseCapture();
+            SendMessage(this.Handle, 0x112, 0xf012, 0);
+        }
+
+        //CARGAR/MOSTRAR FORMULARIO
         private void AgregarArticulo_Load(object sender, EventArgs e)
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
@@ -143,7 +172,9 @@ namespace WinForm
 
         }
 
-
-
+        private void btnSalirAgregar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

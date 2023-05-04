@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnConsultar = new System.Windows.Forms.Button();
-            this.btnListado = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnHome = new System.Windows.Forms.Button();
-            this.btnSalir = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panelSuperior = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.btnMinimiced = new System.Windows.Forms.Button();
             this.btnMacimiced = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.lblTitulo = new System.Windows.Forms.Label();
+            this.btnConsultar = new System.Windows.Forms.Button();
+            this.btnListado = new System.Windows.Forms.Button();
+            this.btnHome = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panelLogo.SuspendLayout();
@@ -61,41 +61,6 @@
             this.panelMenu.Size = new System.Drawing.Size(145, 557);
             this.panelMenu.TabIndex = 1;
             // 
-            // btnConsultar
-            // 
-            this.btnConsultar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnConsultar.FlatAppearance.BorderSize = 0;
-            this.btnConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultar.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnConsultar.Image = global::WinForm.Properties.Resources.icons8_search_20;
-            this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnConsultar.Location = new System.Drawing.Point(0, 174);
-            this.btnConsultar.Name = "btnConsultar";
-            this.btnConsultar.Size = new System.Drawing.Size(145, 47);
-            this.btnConsultar.TabIndex = 2;
-            this.btnConsultar.Text = "Consultas";
-            this.btnConsultar.UseVisualStyleBackColor = true;
-            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
-            // 
-            // btnListado
-            // 
-            this.btnListado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.btnListado.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnListado.FlatAppearance.BorderSize = 0;
-            this.btnListado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnListado.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnListado.Image = global::WinForm.Properties.Resources.icons8_regular_document_20;
-            this.btnListado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListado.Location = new System.Drawing.Point(0, 127);
-            this.btnListado.Name = "btnListado";
-            this.btnListado.Size = new System.Drawing.Size(145, 47);
-            this.btnListado.TabIndex = 1;
-            this.btnListado.Text = "Listado";
-            this.btnListado.UseVisualStyleBackColor = false;
-            this.btnListado.Click += new System.EventHandler(this.btnListado_Click);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnHome);
@@ -104,41 +69,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(145, 47);
             this.flowLayoutPanel1.TabIndex = 8;
-            // 
-            // btnHome
-            // 
-            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.FlatAppearance.BorderSize = 0;
-            this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHome.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnHome.Image = global::WinForm.Properties.Resources.icons8_home_20;
-            this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHome.Location = new System.Drawing.Point(3, 3);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(145, 47);
-            this.btnHome.TabIndex = 0;
-            this.btnHome.Text = "Home";
-            this.btnHome.UseVisualStyleBackColor = true;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(104)))), ((int)(((byte)(34)))), ((int)(((byte)(101)))));
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSalir.Image = global::WinForm.Properties.Resources.icons8_arrow_20;
-            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalir.Location = new System.Drawing.Point(0, 500);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(145, 57);
-            this.btnSalir.TabIndex = 3;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // panelLogo
             // 
@@ -175,51 +105,6 @@
             this.panelSuperior.TabIndex = 2;
             this.panelSuperior.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelSuperior_MouseDown);
             // 
-            // btnMinimiced
-            // 
-            this.btnMinimiced.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnMinimiced.FlatAppearance.BorderSize = 0;
-            this.btnMinimiced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMinimiced.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMinimiced.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.btnMinimiced.Location = new System.Drawing.Point(886, 8);
-            this.btnMinimiced.Name = "btnMinimiced";
-            this.btnMinimiced.Size = new System.Drawing.Size(38, 35);
-            this.btnMinimiced.TabIndex = 5;
-            this.btnMinimiced.Text = "O";
-            this.btnMinimiced.UseVisualStyleBackColor = true;
-            this.btnMinimiced.Click += new System.EventHandler(this.btnMinimiced_Click);
-            // 
-            // btnMacimiced
-            // 
-            this.btnMacimiced.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnMacimiced.FlatAppearance.BorderSize = 0;
-            this.btnMacimiced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMacimiced.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMacimiced.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.btnMacimiced.Location = new System.Drawing.Point(930, 7);
-            this.btnMacimiced.Name = "btnMacimiced";
-            this.btnMacimiced.Size = new System.Drawing.Size(38, 35);
-            this.btnMacimiced.TabIndex = 4;
-            this.btnMacimiced.Text = "O";
-            this.btnMacimiced.UseVisualStyleBackColor = true;
-            this.btnMacimiced.Click += new System.EventHandler(this.btnMacimiced_Click);
-            // 
-            // btnClose
-            // 
-            this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.btnClose.FlatAppearance.BorderSize = 0;
-            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnClose.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.btnClose.Location = new System.Drawing.Point(974, 8);
-            this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(38, 35);
-            this.btnClose.TabIndex = 3;
-            this.btnClose.Text = "O";
-            this.btnClose.UseVisualStyleBackColor = true;
-            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
-            // 
             // lblTitulo
             // 
             this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -232,6 +117,122 @@
             this.lblTitulo.TabIndex = 0;
             this.lblTitulo.Text = "MENU PRINCIPAL";
             this.lblTitulo.Click += new System.EventHandler(this.label1_Click);
+            this.lblTitulo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitulo_MouseDown);
+            // 
+            // btnMinimiced
+            // 
+            this.btnMinimiced.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnMinimiced.FlatAppearance.BorderSize = 0;
+            this.btnMinimiced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMinimiced.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMinimiced.ForeColor = System.Drawing.Color.MediumAquamarine;
+            this.btnMinimiced.Image = global::WinForm.Properties.Resources.icons8_subtract_25;
+            this.btnMinimiced.Location = new System.Drawing.Point(886, 8);
+            this.btnMinimiced.Name = "btnMinimiced";
+            this.btnMinimiced.Size = new System.Drawing.Size(38, 35);
+            this.btnMinimiced.TabIndex = 5;
+            this.btnMinimiced.UseVisualStyleBackColor = true;
+            this.btnMinimiced.Click += new System.EventHandler(this.btnMinimiced_Click);
+            // 
+            // btnMacimiced
+            // 
+            this.btnMacimiced.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnMacimiced.FlatAppearance.BorderSize = 0;
+            this.btnMacimiced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMacimiced.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMacimiced.ForeColor = System.Drawing.Color.MediumAquamarine;
+            this.btnMacimiced.Image = global::WinForm.Properties.Resources.icons8_expand_25;
+            this.btnMacimiced.Location = new System.Drawing.Point(930, 7);
+            this.btnMacimiced.Name = "btnMacimiced";
+            this.btnMacimiced.Size = new System.Drawing.Size(38, 35);
+            this.btnMacimiced.TabIndex = 4;
+            this.btnMacimiced.UseVisualStyleBackColor = true;
+            this.btnMacimiced.Click += new System.EventHandler(this.btnMacimiced_Click);
+            // 
+            // btnClose
+            // 
+            this.btnClose.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.btnClose.FlatAppearance.BorderSize = 0;
+            this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClose.ForeColor = System.Drawing.Color.MediumAquamarine;
+            this.btnClose.Image = global::WinForm.Properties.Resources.icons8_xbox_x_25;
+            this.btnClose.Location = new System.Drawing.Point(974, 8);
+            this.btnClose.Name = "btnClose";
+            this.btnClose.Size = new System.Drawing.Size(38, 35);
+            this.btnClose.TabIndex = 3;
+            this.btnClose.UseVisualStyleBackColor = true;
+            this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
+            // 
+            // btnConsultar
+            // 
+            this.btnConsultar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnConsultar.FlatAppearance.BorderSize = 0;
+            this.btnConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultar.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnConsultar.Image = global::WinForm.Properties.Resources.icons8_search_20;
+            this.btnConsultar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnConsultar.Location = new System.Drawing.Point(0, 174);
+            this.btnConsultar.Name = "btnConsultar";
+            this.btnConsultar.Size = new System.Drawing.Size(145, 47);
+            this.btnConsultar.TabIndex = 2;
+            this.btnConsultar.Text = "Consultas";
+            this.btnConsultar.UseVisualStyleBackColor = true;
+            this.btnConsultar.Click += new System.EventHandler(this.btnConsultar_Click);
+            // 
+            // btnListado
+            // 
+            this.btnListado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.btnListado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnListado.FlatAppearance.BorderSize = 0;
+            this.btnListado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnListado.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnListado.Image = global::WinForm.Properties.Resources.icons8_regular_document_20;
+            this.btnListado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnListado.Location = new System.Drawing.Point(0, 127);
+            this.btnListado.Name = "btnListado";
+            this.btnListado.Size = new System.Drawing.Size(145, 47);
+            this.btnListado.TabIndex = 1;
+            this.btnListado.Text = "Listado";
+            this.btnListado.UseVisualStyleBackColor = false;
+            this.btnListado.Click += new System.EventHandler(this.btnListado_Click);
+            // 
+            // btnHome
+            // 
+            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHome.FlatAppearance.BorderSize = 0;
+            this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHome.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnHome.Image = global::WinForm.Properties.Resources.icons8_home_20;
+            this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHome.Location = new System.Drawing.Point(3, 3);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(145, 47);
+            this.btnHome.TabIndex = 0;
+            this.btnHome.Text = "Home";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(104)))), ((int)(((byte)(34)))), ((int)(((byte)(101)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSalir.Image = global::WinForm.Properties.Resources.icons8_arrow_20;
+            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSalir.Location = new System.Drawing.Point(0, 500);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(145, 57);
+            this.btnSalir.TabIndex = 3;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // MenuPrincipal
             // 

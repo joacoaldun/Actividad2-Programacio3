@@ -181,5 +181,17 @@
   <ItemGroup>
     <None Include="Resources\icons8-circled-right-50.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-xbox-x-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-expand-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-subtract-25.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-xbox-x-251.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
