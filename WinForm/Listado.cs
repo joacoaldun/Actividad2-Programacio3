@@ -37,7 +37,78 @@ namespace WinForm
         private void Listado_Load(object sender, EventArgs e)
         {
             cargar();
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Marcas");
+            cboCampo.Items.Add("Precio");
+            cboCampo.Items.Add("Categorias");
+            cboCampo.Items.Add("Descripcion");
+            cboCampo.Items.Add("Codigo Articulo");
+           
         }
+
+        //CARGAMOS CBO FILTROS
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboCriterio.Items.Clear();
+            string opcion = cboCampo.SelectedItem.ToString();
+            if (opcion == "Precio")
+            {
+                cargarCboCriterio("Mayor a", "Menor a", "Igual a");
+            }
+            else
+            {
+                cargarCboCriterio("Comienza con","Termina con","Contiene");
+            }
+        }
+
+        private void cargarCboCriterio(string criterio1, string criterio2, string criterio3)
+        {
+            cboCriterio.Items.Add(criterio1);
+            cboCriterio.Items.Add(criterio2);
+            cboCriterio.Items.Add(criterio3);
+        }
+
+        //FILTRO AVANZADO
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+
+
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            try
+            {   // Verificamos si los ComboBox no estan nulos.
+                if (cboCampo.SelectedIndex >= 0 && cboCriterio.SelectedIndex >= 0) 
+                {
+                    string campo = cboCampo.SelectedItem.ToString();
+                    string criterio = cboCriterio.SelectedItem.ToString();
+                    string filtro = txtFiltro.Text;
+
+                    //Verificamoss si el filtro esta vacio
+                    if (string.IsNullOrWhiteSpace(filtro))
+                    {  // Cargar la lista completa de arts
+                        cargar(); 
+                    }
+                    else
+                    {   // Si el filtro no esta vacio, filtra
+                        dgvListaArticulos.DataSource = negocio.filtrar(campo, criterio, filtro); 
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Debe seleccionar un campo y un criterio de búsqueda.", "Error de selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
+            
+        }
+
+        
+
+        
+
 
         //CARGAMOS IMAGEN EN PBX
         private void cargarImagen(string imagen)
@@ -82,7 +153,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -127,7 +198,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -171,7 +242,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -223,9 +294,39 @@ namespace WinForm
                 MessageBox.Show("No hay artículos o imágenes disponibles para mostrar.");
             }
             dgvListaArticulos.DataSource = listaArticulos;
-            //dgvListaArticulos.Columns["Id"].Visible = false;
+            dgvListaArticulos.Columns["Id"].Visible = false;
 
 
         }
+
+        private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> listaFiltrada;
+            string filtro = txtFiltroRapido.Text;
+
+            if (filtro.Length>0)
+            {
+                listaFiltrada = listaArticulos.FindAll(x => x.CodigoArticulo.ToUpper().Contains(filtro.ToUpper()) || x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.Marcas.NombreMarca.ToUpper().Contains(filtro.ToUpper()) || x.Categorias.NombreCategoria.ToUpper().Contains(filtro.ToUpper()));
+                //listaFiltrada = listaArticulos.FindAll(x => x.CodigoArticulo.ToUpper().Contains(filtro.ToUpper()));
+
+            }
+            else
+            {
+                listaFiltrada = listaArticulos;
+            }
+
+
+            dgvListaArticulos.DataSource = null;
+            dgvListaArticulos.DataSource = listaFiltrada;
+
+
+
+            dgvListaArticulos.Columns["Id"].Visible = false;
+        }
+
+        //FILTRO RAPIDO
+
+
+
     }
 }

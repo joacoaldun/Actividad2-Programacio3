@@ -11,6 +11,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.IO;
 using System.Security.Cryptography;
 
+
 namespace Negocio
 {
     public class ArticuloNegocio
@@ -86,6 +87,174 @@ namespace Negocio
 
         }
 
+
+
+        //LISTAR POR FILTROS
+        public List<Articulo> filtrar(string campo, string criterio, string filtro)
+        {
+            List<Articulo> lista = new List<Articulo>();
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                string consulta = "SELECT a.Id, Codigo, Nombre, a.Descripcion as DescripcionArticulo, \r\n Precio, m.Descripcion as NombreMarca, c.Descripcion as NombreCategoria, \r\n i.ImagenUrl as imagen from ARTICULOS a \r\n inner join MARCAS m on a.IdMarca=m.Id\r\n left join CATEGORIAS c on a.IdCategoria=c.Id\r\n left join IMAGENES i on a.Id=i.IdArticulo where ";
+                if (campo == "Precio")
+                {
+                    consulta=sumarFiltrosAConsulta("Precio", criterio, filtro, consulta);
+                }
+                else if (campo == "Codigo")
+                {
+                    consulta=sumarFiltrosAConsulta("Codigo", criterio, filtro, consulta);
+                }
+                else if (campo == "Nombre")
+                {
+                    consulta = sumarFiltrosAConsulta("Nombre", criterio, filtro, consulta);
+                }
+                else if (campo == "Descripcion")
+                {
+                    consulta = sumarFiltrosAConsulta("a.Descripcion", criterio, filtro, consulta);
+                }
+                else if (campo == "Marcas")
+                {
+                    consulta = sumarFiltrosAConsulta("m.Descripcion", criterio, filtro, consulta);
+                }
+                else if (campo == "Categorias")
+                { 
+                    consulta = sumarFiltrosAConsulta("c.Descripcion", criterio, filtro, consulta);
+                }
+                //TODO IF OTROS CAMPOS....
+
+                
+
+                datos.setearConsulta(consulta);
+                datos.ejecutarConsulta();
+
+                while (datos.Lector.Read())
+                {
+                    //Validaciones BD
+                    int id = (int)datos.Lector["Id"];
+                    string codigoArt = datos.Lector["Codigo"] == DBNull.Value ? "Sin codigo" : (string)datos.Lector["Codigo"];
+                    string descripcion = datos.Lector["DescripcionArticulo"] == DBNull.Value ? "Sin descripcion" : (string)datos.Lector["DescripcionArticulo"];
+                    decimal precio = datos.Lector["Precio"] == DBNull.Value ? 0 : (decimal)datos.Lector["Precio"];
+                    string nombre = datos.Lector["Nombre"] == DBNull.Value ? "Sin nombre" : (string)datos.Lector["Nombre"];
+                    string urlImagen = datos.Lector["imagen"] == DBNull.Value ? "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" : (string)datos.Lector["imagen"];
+                    string categorias = datos.Lector["NombreCategoria"] == DBNull.Value ? "Sin categoria" : (string)datos.Lector["NombreCategoria"];
+                    string marcas = datos.Lector["NombreMarca"] == DBNull.Value ? "Sin marca" : (string)datos.Lector["NombreMarca"];
+
+
+                    //Verificamos si el articulo existe
+                    Articulo articulo = lista.FirstOrDefault(a => a.Id == id);
+                    if (articulo == null)
+                    {
+                        // Si no existe, creamos un nuevo artículo y lo agregamos a la lista
+
+                        articulo = new Articulo
+
+                        {
+                            Id = id,
+                            CodigoArticulo = codigoArt,
+                            Nombre = nombre,
+                            Descripcion = descripcion,
+                            Precio = precio,
+                            Categorias = new Categoria { NombreCategoria = categorias },
+                            Marcas = new Marca { NombreMarca = marcas },
+                            imagenes = new List<string>() // Inicializamos la lista de imagenes del artículo
+                        };
+                        lista.Add(articulo);
+                    }
+                    //Si existe, agregamos la URL de la imagen a la lista de imagenes del artículo
+                    articulo.imagenes.Add(urlImagen);
+
+
+                }
+
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+
+
+        public string sumarFiltrosAConsulta(string propiedad, string criterio, string filtro, string consulta)
+        {
+
+            string nombrePropiedad = ""; // Variable para almacenar el nombre de la propiedad
+            switch (propiedad)
+            {
+                case "Precio":
+                    nombrePropiedad = "Precio";
+                    break;
+                case "Codigo":
+                    nombrePropiedad = "Codigo";
+                    break;
+                case "Nombre":
+                    nombrePropiedad = "Nombre";
+                    break;
+                case "a.Descripcion":
+                    nombrePropiedad = "a.Descripcion";
+                    break;
+                case "m.Descripcion":
+                    nombrePropiedad = "m.Descripcion";
+                    break;
+                case "c.Descripcion":
+                    nombrePropiedad = "c.Descripcion";
+                    break;
+
+
+                default:
+                    throw new Exception("Propiedad no válida");
+            }
+
+            if (string.Equals(propiedad, "Precio", StringComparison.OrdinalIgnoreCase))
+            {
+                
+                               
+                switch (criterio)
+                {
+
+                      case "Mayor a":
+                      consulta += propiedad + ">" + filtro;
+                          break;
+                      case "Menor a":
+                      consulta += propiedad + "<" + filtro;
+                          break;
+                      default:
+                      consulta += propiedad + "=" + filtro;
+                          break;
+            }
+            }
+            else
+            {
+                switch (criterio)
+                {
+
+
+                    case "Comienza con":
+                        consulta += $"{nombrePropiedad} LIKE '{filtro}%'";
+                        break;
+                    case "Termina con":
+                        consulta += $"{nombrePropiedad} LIKE '%{filtro}'";
+                        break;
+                    default:
+                        consulta += $"{nombrePropiedad} LIKE '%{filtro}%'";
+                        break;
+
+
+                }
+
+            }
+
+
+
+            return consulta;
+        }
+
+
+        //AGREGAR
         public void Agregar(Articulo articulo) { 
         
             AccesoDatos datos = new AccesoDatos();
