@@ -153,7 +153,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -198,7 +198,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -242,7 +242,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -323,6 +323,40 @@ namespace WinForm
 
             dgvListaArticulos.Columns["Id"].Visible = false;
         }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+
+            AgregarArticulo articulo = new AgregarArticulo(seleccionado);
+            articulo.ShowDialog();
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ArticuloNegocio negocio = new ArticuloNegocio();
+            Articulo seleccionado;
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("Estas seguro que desea eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+                    negocio.eliminar(seleccionado.Id);
+                    cargar();
+
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
+
+      
+
+      
 
         //FILTRO RAPIDO
 

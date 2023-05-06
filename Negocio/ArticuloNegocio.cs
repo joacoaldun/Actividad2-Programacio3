@@ -23,7 +23,7 @@ namespace Negocio
 
             try
             {
-                datos.setearConsulta("SELECT a.Id, Codigo, Nombre, a.Descripcion as DescripcionArticulo, Precio, m.Descripcion as NombreMarca, c.Descripcion as NombreCategoria, i.ImagenUrl as imagen from ARTICULOS a \r\ninner join MARCAS m on a.IdMarca=m.Id\r\nleft join CATEGORIAS c on a.IdCategoria=c.Id\r\nleft join IMAGENES i on a.Id=i.IdArticulo ");
+                datos.setearConsulta("SELECT a.Id, Codigo, Nombre, a.Descripcion as DescripcionArticulo, Precio,m.Id as IdMarca, m.Descripcion as NombreMarca,c.Id as IdCategoria, c.Descripcion as NombreCategoria, i.ImagenUrl as imagen from ARTICULOS a inner join MARCAS m on a.IdMarca=m.Id left join CATEGORIAS c on a.IdCategoria=c.Id left join IMAGENES i on a.Id=i.IdArticulo ");
                 datos.ejecutarConsulta();
                 List<Articulo> lista = new List<Articulo>();
                 
@@ -32,15 +32,17 @@ namespace Negocio
                 while (datos.Lector.Read())
                 {
                     //Validaciones BD
-                    int id = (int)datos.Lector["Id"]; 
-                    string codigoArt = datos.Lector["Codigo"]==DBNull.Value?"Sin codigo": (string)datos.Lector["Codigo"];
-                    string descripcion = datos.Lector["DescripcionArticulo"]==DBNull.Value?"Sin descripcion": (string)datos.Lector["DescripcionArticulo"];
-                    decimal precio = datos.Lector["Precio"]==DBNull.Value? 0:(decimal)datos.Lector["Precio"];
-                    string nombre = datos.Lector["Nombre"]==DBNull.Value?"Sin nombre": (string)datos.Lector["Nombre"];
+                    int id = (int)datos.Lector["Id"];
+                    string codigoArt = datos.Lector["Codigo"] == DBNull.Value ? "Sin codigo" : (string)datos.Lector["Codigo"];
+                    string descripcion = datos.Lector["DescripcionArticulo"] == DBNull.Value ? "Sin descripcion" : (string)datos.Lector["DescripcionArticulo"];
+                    decimal precio = datos.Lector["Precio"] == DBNull.Value ? 0 : (decimal)datos.Lector["Precio"];
+                    string nombre = datos.Lector["Nombre"] == DBNull.Value ? "Sin nombre" : (string)datos.Lector["Nombre"];
                     string urlImagen = datos.Lector["imagen"] == DBNull.Value ? "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" : (string)datos.Lector["imagen"];
-                    string categorias = datos.Lector["NombreCategoria"]==DBNull.Value? "Sin categoria": (string)datos.Lector["NombreCategoria"];
-                    string marcas= datos.Lector["NombreMarca"]==DBNull.Value? "Sin marca": (string)datos.Lector["NombreMarca"];
-                    
+                    int idCategorias = datos.Lector["IdCategoria"] == DBNull.Value ? -1 : (int)datos.Lector["IdCategoria"];
+                    string categorias = datos.Lector["NombreCategoria"] == DBNull.Value ? "Sin categoria" : (string)datos.Lector["NombreCategoria"];
+                    int idMarcas = datos.Lector["IdMarca"] == DBNull.Value ? -1 : (int)datos.Lector["IdMarca"];
+                    string marcas = datos.Lector["NombreMarca"] == DBNull.Value ? "Sin marca" : (string)datos.Lector["NombreMarca"];
+
 
                     //Verificamos si el articulo existe
                     Articulo articulo = lista.FirstOrDefault(a => a.Id == id);
@@ -56,8 +58,17 @@ namespace Negocio
                             Nombre = nombre,
                             Descripcion = descripcion,
                             Precio = precio,
-                            Categorias = new Categoria { NombreCategoria = categorias },
-                            Marcas = new Marca { NombreMarca = marcas },
+
+                            Categorias = new Categoria
+                            {
+                                Id = idCategorias,
+                                NombreCategoria = categorias
+                            },
+                            Marcas = new Marca
+                            {
+                                Id = idMarcas,
+                                NombreMarca = marcas
+                            },
                             imagenes = new List<string>() // Inicializamos la lista de imagenes del artículo
                         };
                         lista.Add(articulo);
@@ -86,8 +97,6 @@ namespace Negocio
             }
 
         }
-
-
 
         //LISTAR POR FILTROS
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
@@ -176,7 +185,6 @@ namespace Negocio
                 throw ex;
             }
         }
-
 
 
         public string sumarFiltrosAConsulta(string propiedad, string criterio, string filtro, string consulta)
@@ -272,11 +280,66 @@ namespace Negocio
                 datos.setearParametros("@Precio", articulo.Precio);
 
                 datos.ejecutarAccion();
+                           
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally {
+                datos.cerrarConexion();
+              
+            }
+                              
+        }
+
+        public void Modificar(Articulo articulo)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("update ARTICULOS set Codigo = @Codigo, Nombre = @Nombre, Descripcion = @Descripcion, Precio = @Precio, IdMarca = @IdMarca, IdCategoria = @IdCategoria  where Id = @Id");
+
+                datos.setearParametros("@Codigo", articulo.CodigoArticulo);
+                datos.setearParametros("@Nombre", articulo.Nombre);
+                datos.setearParametros("@Descripcion", articulo.Descripcion);
+                datos.setearParametros("@IdMarca", articulo.Marcas.Id);
+                datos.setearParametros("@IdCategoria", articulo.Categorias.Id);
+                datos.setearParametros("@Precio", articulo.Precio);
+                datos.setearParametros("@Id", articulo.Id);
+
+                datos.ejecutarAccion();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void eliminar(int id)
+        {
+            try
+            {
+                AccesoDatos datos = new AccesoDatos();
+                datos.setearConsulta("delete from ARTICULOS where Id = @Id");
+                datos.setearParametros("@Id", id);
+
+                datos.ejecutarAccion();
+
+                datos.setearConsulta("delete from IMAGENES where IdArticulo = @IdArticulo");
+                datos.setearParametros("@IdArticulo", id);
 
 
-               
-
-
+                datos.ejecutarAccion();
 
 
             }
@@ -285,14 +348,34 @@ namespace Negocio
 
                 throw ex;
             }
-            finally {
-                datos.cerrarConexion();
-                
+        }
+
+        public void AgregarMasImagenes(int id, string url)
+        {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("INSERT into imagenes(IdArticulo,ImagenUrl) values(@IdArticulo,@ImagenUrl)");
+                datos.setearParametros("@IdArticulo", id);
+                datos.setearParametros("ImagenUrl", url);
+                datos.ejecutarAccion();
+
 
             }
+            catch (Exception)
+            {
 
-           
-        
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+
+
         }
 
         public int BuscarUltimoId() {
@@ -344,8 +427,7 @@ namespace Negocio
                 
                 foreach (var item in articulo.imagenes)
                 {
-                    datos.setearConsulta("insert into imagenes(idArticulo, ImagenUrl) values ("+ idArticulo +", '" + articulo.imagenes  + "' )");
-                   
+                    datos.setearConsulta("insert into imagenes(idArticulo, ImagenUrl) values ("+ idArticulo +", '" + item.ToString()  + "' )");
                     datos.ejecutarAccion();
                 }
 
@@ -362,6 +444,8 @@ namespace Negocio
         
         
         }
+
+              
 
     }
 }

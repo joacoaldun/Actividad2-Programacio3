@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,16 +18,39 @@ namespace WinForm
 {
     public partial class AgregarArticulo : Form
     {
+        
+        private Articulo articulo = null;
+        private List<string> lista = new List<string>();
+
+        int posicionLeave = 0;
         public AgregarArticulo()
         {
+
             InitializeComponent();
             this.FormBorderStyle= FormBorderStyle.None;
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;//Limita el area para mover la ventana
-            //MOVER VENTANA
+            btnModificarImagen.Visible = false;
             
-         
-            
+            //MOVER VENTANA                   
+        
+        }
+
+        public AgregarArticulo(Articulo articulo)
+        {
+            InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.ControlBox = false;
+            this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
+            this.articulo = articulo;
+            txtUrlImagenes.Visible = false;
+            lblUrl.Visible = false;
+            btnAgregarImagen.Visible = false;
+            label8.Text = "MODIFICAR ARTICULO";
+
+
+
+
         }
 
         //MOVER VENTANA
@@ -53,23 +78,39 @@ namespace WinForm
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+            string imagenUrl = "https://www.campana.gob.ar/wp-content/uploads/2022/05/placeholder-1.png\");\r\n            }";
+
             try
             {
-              cbxMarca.DataSource = marcaNegocio.listar();
-              cbxMarca.ValueMember = "Id";
-              cbxMarca.DisplayMember = "NombreMarca";
+                cbxMarca.DataSource = marcaNegocio.listar();
+                cbxMarca.ValueMember = "Id";
+                cbxMarca.DisplayMember = "NombreMarca";
 
-              cbxCategoria.DataSource = categoriaNegocio.listar();
-              cbxCategoria.ValueMember = "Id";
-              cbxCategoria.DisplayMember = "NombreCategoria";
+                cbxCategoria.DataSource = categoriaNegocio.listar();
+                cbxCategoria.ValueMember = "Id";
+                cbxCategoria.DisplayMember = "NombreCategoria";
+              
+                pbxImagen.Load(imagenUrl);
+
+                if (articulo != null)
+                {
+                    txtCodigo.Text = articulo.CodigoArticulo.ToString();
+                    txtNombre.Text = articulo.Nombre;
+                    txtDescripcion.Text = articulo.Descripcion;
+                    txtPrecio.Text = articulo.Precio.ToString();
+                    txtUrlImagenes.Text = articulo.imagenes[0].ToString();
+                    cargarImagen(articulo.imagenes[0].ToString());
+                    cbxCategoria.SelectedValue = articulo.Categorias.Id;
+                    cbxMarca.SelectedValue = articulo.Marcas.Id;
+
+                }
+
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
-            
-
+           
 
         }
 
@@ -82,6 +123,7 @@ namespace WinForm
         {
            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articulo = new Articulo();
+           
             try
             {
                 articulo.CodigoArticulo = txtCodigo.Text;
@@ -98,31 +140,43 @@ namespace WinForm
 
 
                 //CARGO TODAS LAS URLS EN UN MISMO TEXTBOX Y LAS SEPARO POR COMAS, LUEGO LAS GUARDO EN UN ARRAY.
-                articulo.imagenes = new List<string>();
-                articulo.imagenes.Add(txtUrlImagenes.Text);
-                
-                
+                           
+              if(lista.Count == 0)
+                {
+                     articulo.imagenes = new List<string>();
+                     articulo.imagenes.Add(txtUrlImagenes.Text);
+                }
+              else 
+                {
+                    articulo.imagenes = lista;                
+                }
+              
                 //string urlsText = txtUrlImagenes.Text;
-                
+
                 //string[] urls = urlsText.Split(',');
-               
+
                 // Agregar cada URL a la lista de URLs de Articulo
                 //foreach (string url in urls)
                 //{
-                    //CON EL METODO TRIM() QUITO LOS ESPACIOS QUE QUEDAN LUEGO DEL SPLIT
+                //CON EL METODO TRIM() QUITO LOS ESPACIOS QUE QUEDAN LUEGO DEL SPLIT
                 //    string cleanUrl = url.Trim();
                 //    articulo.imagenes.Add(cleanUrl);
                 //}
 
 
+                if (articulo.Id != 0)
+                {
+                    articuloNegocio.Modificar(articulo);
+                    MessageBox.Show("Articulo modificado exitosamente");
 
+                }
+                else
+                {
+                    articuloNegocio.Agregar(articulo);
+                    articuloNegocio.AgregarImagenes(articulo);
+                    MessageBox.Show("Articulo agregado exitosamente");
+                }
 
-
-
-
-                articuloNegocio.Agregar(articulo);
-                articuloNegocio.AgregarImagenes(articulo);
-                MessageBox.Show("Articulo agregado exitosamente");
                 Close();
 
                
@@ -154,7 +208,45 @@ namespace WinForm
 
         private void txtUrlImagenes_Leave(object sender, EventArgs e)
         {
-            cargarImagen(txtUrlImagenes.Text);
+            string url;
+            string urlEscapada;
+
+            if (posicionLeave == 0)
+            { 
+            url = txtUrlImagenes.Text;
+            urlEscapada = Uri.EscapeUriString(url);
+            }
+            else {
+                url = lista[posicionLeave].ToString();
+                urlEscapada = Uri.EscapeUriString(url);
+            }   
+            
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    var imagenDescargada = webClient.DownloadData(urlEscapada);
+                    using (var stream = new MemoryStream(imagenDescargada))
+                    {
+                        pbxImagen.Image = Image.FromStream(stream);
+                    }
+                }
+
+                posicionLeave += 1;
+            }
+            catch (Exception ex)
+            {
+                // Construir la ruta de la imagen de respaldo 
+                string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                // Cargar la imagen 
+                pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+
+
+            }
+
+            //Enviar mensaje a General
+
         }
 
         private void cargarImagen(string imagen)
@@ -176,5 +268,14 @@ namespace WinForm
         {
             this.Close();
         }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            lista.Add(txtUrlImagenes.Text);
+            txtUrlImagenes.Clear();
+            
+            
+        }
+
     }
 }
