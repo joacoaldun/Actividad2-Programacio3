@@ -248,6 +248,7 @@
             this.Controls.Add(this.pbxArticulo);
             this.Controls.Add(this.dgvListaArticulos);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Listado";
             this.Text = "Listado";

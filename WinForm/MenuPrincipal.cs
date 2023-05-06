@@ -45,7 +45,7 @@ namespace WinForm
 
             foreach (var item in Application.OpenForms)
             {
-                if (item.GetType() == typeof(Home))
+                if (item.GetType() == typeof(Home) || item.GetType() == typeof(AgregarMarcaYCategoria))
                 {   //Convertimos el item a form para poder agregarlo a la lista de FormsAcerrar
                     Form form = item as Form; 
                     if (form != null)
@@ -74,10 +74,7 @@ namespace WinForm
 
         }
         
-        private void btnConsultar_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -138,7 +135,7 @@ namespace WinForm
 
             foreach (var item in Application.OpenForms)
             {  //Convertimos el item a form para poder agregarlo a la lista de FormsAcerrar
-                if (item.GetType() == typeof(Listado))
+                if (item.GetType() == typeof(Listado) || item.GetType() == typeof(AgregarMarcaYCategoria))
                 {
                     Form form = item as Form; 
                     if (form != null)
@@ -163,7 +160,37 @@ namespace WinForm
             ventana.Show(); // EL SHOWDIALOG NO FUNCIONA CON EL MDIPARENT
         }
 
-       
+        private void btnMarcasYCategorias_Click(object sender, EventArgs e)
+        {
+            lblTitulo.Text = "Marcas y Categorias";
+            List<Form> formsACerrar = new List<Form>();
+
+            foreach (var item in Application.OpenForms)
+            {  //Convertimos el item a form para poder agregarlo a la lista de FormsAcerrar
+                if (item.GetType() == typeof(Listado) || item.GetType()==typeof(Home))
+                {
+                    Form form = item as Form;
+                    if (form != null)
+                    {
+                        formsACerrar.Add(form);
+                    }
+                }
+                else if (item.GetType() == typeof(AgregarMarcaYCategoria))
+                {
+                    MessageBox.Show("YA EXISTE ESTA VENTANA ABIERTA");
+                    return;
+                }
+            }
+
+            foreach (Form form in formsACerrar)
+            {   //Cerramos el formulario agregado a la lista
+                form.Close();
+            }
+
+            AgregarMarcaYCategoria ventana = new AgregarMarcaYCategoria();
+            ventana.MdiParent = this;
+            ventana.Show(); // EL SHOWDIALOG NO FUNCIONA CON EL MDIPARENT
+        }
     }
     
 }

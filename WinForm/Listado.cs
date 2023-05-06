@@ -153,7 +153,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -198,7 +198,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -242,7 +242,7 @@ namespace WinForm
                     catch (Exception ex)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
