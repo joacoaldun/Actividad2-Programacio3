@@ -233,7 +233,16 @@ namespace Negocio
                       default:
                       consulta += propiedad + "=" + filtro;
                           break;
+                }
             }
+            else if(string.Equals(propiedad, "m.Descripcion", StringComparison.OrdinalIgnoreCase)){
+                consulta += "m.Descripcion ='"  +  filtro + "'";
+                
+            }
+
+            else if(string.Equals(propiedad, "c.Descripcion", StringComparison.OrdinalIgnoreCase))
+            {
+                consulta += "c.Descripcion ='" + filtro + "'";
             }
             else
             {
@@ -433,10 +442,10 @@ namespace Negocio
 
                
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
             finally { 
                 datos.cerrarConexion();

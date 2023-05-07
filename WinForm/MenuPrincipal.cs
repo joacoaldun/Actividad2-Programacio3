@@ -24,7 +24,7 @@ namespace WinForm
 
 
         //Para que el panel superior maneje el movimiento de la ventana
-         
+
         [DllImport("user32.DLL", EntryPoint = "ReleaseCapture")]
         private extern static void ReleaseCapture();
 
@@ -45,12 +45,12 @@ namespace WinForm
 
             foreach (var item in Application.OpenForms)
             {
-                if (item.GetType() == typeof(Home) || item.GetType() == typeof(AgregarMarcaYCategoria))
+                if (item.GetType() == typeof(Home) || item.GetType() == typeof(AgregarCategoriaYMarca))
                 {   //Convertimos el item a form para poder agregarlo a la lista de FormsAcerrar
-                    Form form = item as Form; 
+                    Form form = item as Form;
                     if (form != null)
                     {
-                        formsACerrar.Add(form); 
+                        formsACerrar.Add(form);
                     }
                 }
                 else if (item.GetType() == typeof(Listado))
@@ -62,19 +62,19 @@ namespace WinForm
 
             foreach (Form form in formsACerrar)
             {   //Cerramos formularios que estan en la lista
-                form.Close(); 
+                form.Close();
             }
 
-           
+
 
             Listado ventana = new Listado();
             ventana.MdiParent = this;
             ventana.Show(); // EL SHOWDIALOG NO FUNCIONA CON EL MDIPARENT
-            
+
 
         }
-        
-        
+
+
 
         private void btnSalir_Click(object sender, EventArgs e)
         {
@@ -111,19 +111,19 @@ namespace WinForm
         {
             if (WindowState == FormWindowState.Normal)
             {
-                this.WindowState=FormWindowState.Maximized;
+                this.WindowState = FormWindowState.Maximized;
             }
             else
             {
-                this.WindowState=FormWindowState.Normal;
+                this.WindowState = FormWindowState.Normal;
             }
         }
 
         private void btnMinimiced_Click(object sender, EventArgs e)
         {
-           
-                this.WindowState = FormWindowState.Minimized;
-            
+
+            this.WindowState = FormWindowState.Minimized;
+
         }
 
 
@@ -135,12 +135,12 @@ namespace WinForm
 
             foreach (var item in Application.OpenForms)
             {  //Convertimos el item a form para poder agregarlo a la lista de FormsAcerrar
-                if (item.GetType() == typeof(Listado) || item.GetType() == typeof(AgregarMarcaYCategoria))
+                if (item.GetType() == typeof(Listado) || item.GetType() == typeof(AgregarCategoriaYMarca))
                 {
-                    Form form = item as Form; 
+                    Form form = item as Form;
                     if (form != null)
                     {
-                        formsACerrar.Add(form); 
+                        formsACerrar.Add(form);
                     }
                 }
                 else if (item.GetType() == typeof(Home))
@@ -152,7 +152,7 @@ namespace WinForm
 
             foreach (Form form in formsACerrar)
             {   //Cerramos el formulario agregado a la lista
-                form.Close(); 
+                form.Close();
             }
 
             Home ventana = new Home();
@@ -162,12 +162,12 @@ namespace WinForm
 
         private void btnMarcasYCategorias_Click(object sender, EventArgs e)
         {
-            lblTitulo.Text = "Marcas y Categorias";
+            lblTitulo.Text = "MARCAS Y CATEGORÍAS";
             List<Form> formsACerrar = new List<Form>();
 
             foreach (var item in Application.OpenForms)
             {  //Convertimos el item a form para poder agregarlo a la lista de FormsAcerrar
-                if (item.GetType() == typeof(Listado) || item.GetType()==typeof(Home))
+                if (item.GetType() == typeof(Listado) || item.GetType() == typeof(Home))
                 {
                     Form form = item as Form;
                     if (form != null)
@@ -175,7 +175,7 @@ namespace WinForm
                         formsACerrar.Add(form);
                     }
                 }
-                else if (item.GetType() == typeof(AgregarMarcaYCategoria))
+                else if (item.GetType() == typeof(AgregarCategoriaYMarca))
                 {
                     MessageBox.Show("YA EXISTE ESTA VENTANA ABIERTA");
                     return;
@@ -187,10 +187,15 @@ namespace WinForm
                 form.Close();
             }
 
-            AgregarMarcaYCategoria ventana = new AgregarMarcaYCategoria();
+            AgregarCategoriaYMarca ventana = new AgregarCategoriaYMarca();
             ventana.MdiParent = this;
             ventana.Show(); // EL SHOWDIALOG NO FUNCIONA CON EL MDIPARENT
         }
+
+        private void btnCategorias_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
-    
 }

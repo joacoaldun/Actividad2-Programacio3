@@ -73,6 +73,16 @@ namespace WinForm.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cat {
+            get {
+                object obj = ResourceManager.GetObject("cat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap exit {
             get {
                 object obj = ResourceManager.GetObject("exit", resourceCulture);
@@ -106,6 +116,16 @@ namespace WinForm.Properties {
         internal static System.Drawing.Bitmap icons8_circled_right_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-circled-right-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_close_window_20 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-close-window-20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -166,6 +186,26 @@ namespace WinForm.Properties {
         internal static System.Drawing.Bitmap icons8_keydb_50 {
             get {
                 object obj = ResourceManager.GetObject("icons8-keydb-50", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_maximize_window_20 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-maximize-window-20", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_maximize_window_201 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-maximize-window-201", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

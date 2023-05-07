@@ -50,16 +50,53 @@ namespace WinForm
         private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             cboCriterio.Items.Clear();
+            txtFiltro.Enabled = true;
             string opcion = cboCampo.SelectedItem.ToString();
             if (opcion == "Precio")
             {
                 cargarCboCriterio("Mayor a", "Menor a", "Igual a");
+            }
+            else if (opcion == "Categorias")
+            {
+                txtFiltro.Enabled = false;
+                cargarCboCategorias();
+            }
+            else if (opcion == "Marcas")
+            {
+                txtFiltro.Enabled = false;
+                cargarCboMarcas();
             }
             else
             {
                 cargarCboCriterio("Comienza con","Termina con","Contiene");
             }
         }
+
+        private void cargarCboCategorias()
+        {
+            CategoriaNegocio negocio = new CategoriaNegocio();
+            List<Categoria>categorias = new List<Categoria>();
+            categorias=negocio.listar();
+
+            foreach (Categoria categoria in categorias)
+            {
+                cboCriterio.Items.Add(categoria.NombreCategoria);
+            }
+
+        }
+
+        private void cargarCboMarcas()
+        {
+            MarcaNegocio negocio = new MarcaNegocio();
+            List<Marca> marcas = new List<Marca>();
+            marcas = negocio.listar();
+
+            foreach (Marca marca in marcas)
+            {
+                cboCriterio.Items.Add(marca.NombreMarca);
+            }
+        }
+
 
         private void cargarCboCriterio(string criterio1, string criterio2, string criterio3)
         {
@@ -69,6 +106,41 @@ namespace WinForm
         }
 
         //FILTRO AVANZADO
+
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if ((char.IsNumber(caracter)))
+                    return true;
+            }
+            return false;
+        }
+
+
+        private bool validarFiltro()
+        {
+            if (cboCampo.SelectedIndex < 0 || cboCriterio.SelectedIndex < 0)
+            {
+                MessageBox.Show("Debe seleccionar un campo y un criterio de búsqueda.", "Error de selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            if (cboCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (string.IsNullOrEmpty(txtFiltro.Text))
+                {
+                    MessageBox.Show("Por favor ingresa un filtro para numéricos");
+                    return false;
+                }
+                if (!soloNumeros(txtFiltro.Text))
+                {
+                    MessageBox.Show("Solo se aceptan números para filtrar un campo numerico");
+                    return false;
+                }
+            }
+            return true;
+        }
+
         private void btnBuscar_Click(object sender, EventArgs e)
         {
 
@@ -76,11 +148,17 @@ namespace WinForm
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {   // Verificamos si los ComboBox no estan nulos.
-                if (cboCampo.SelectedIndex >= 0 && cboCriterio.SelectedIndex >= 0) 
+                if (validarFiltro()) 
                 {
                     string campo = cboCampo.SelectedItem.ToString();
                     string criterio = cboCriterio.SelectedItem.ToString();
                     string filtro = txtFiltro.Text;
+
+
+                    if (cboCampo.SelectedItem.ToString()=="Marcas" || cboCampo.SelectedItem.ToString() == "Categorias")
+                    {
+                        filtro = criterio;
+                    }
 
                     //Verificamoss si el filtro esta vacio
                     if (string.IsNullOrWhiteSpace(filtro))
@@ -90,12 +168,11 @@ namespace WinForm
                     else
                     {   // Si el filtro no esta vacio, filtra
                         dgvListaArticulos.DataSource = negocio.filtrar(campo, criterio, filtro); 
+                       
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Debe seleccionar un campo y un criterio de búsqueda.", "Error de selección", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                txtFiltro.Clear();
+               
             }
             catch (Exception ex)
             {
@@ -255,7 +332,11 @@ namespace WinForm
 
         private void dgvListaArticulos_DoubleClick(object sender, EventArgs e)
         {
-            MessageBox.Show("No hay nada por aqui...");
+            //MessageBox.Show("No hay nada por aqui...");
+            Articulo seleccionado = new Articulo();
+            seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+            Descripcion descripcion = new Descripcion(seleccionado);
+            descripcion.ShowDialog();
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -298,7 +379,7 @@ namespace WinForm
 
 
         }
-
+        //FILTRO RAPIDO
         private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
         {
             List<Articulo> listaFiltrada;
@@ -326,10 +407,21 @@ namespace WinForm
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+            if (dgvListaArticulos.SelectedRows.Count > 0)
+            {
 
-            AgregarArticulo articulo = new AgregarArticulo(seleccionado);
-            articulo.ShowDialog();
+                Articulo seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+
+                AgregarArticulo articulo = new AgregarArticulo(seleccionado);
+                articulo.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("No hay un artículo seleccionado");
+            }
+            
+            
+
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -338,14 +430,23 @@ namespace WinForm
             Articulo seleccionado;
             try
             {
-                DialogResult respuesta = MessageBox.Show("Estas seguro que desea eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (respuesta == DialogResult.Yes)
+                if (dgvListaArticulos.SelectedRows.Count > 0)
                 {
-                    seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
-                    negocio.eliminar(seleccionado.Id);
-                    cargar();
+                    DialogResult respuesta = MessageBox.Show("Estas seguro que desea eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (respuesta == DialogResult.Yes)
+                    {
+                        seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+                        negocio.eliminar(seleccionado.Id);
+                        cargar();
+
+                    }
 
                 }
+                else
+                {
+                    MessageBox.Show("No hay un artículo seleccionado");
+                }
+
             }
             catch (Exception ex)
             {
@@ -354,13 +455,9 @@ namespace WinForm
             }
         }
 
-      
+        private void txtFiltro_TextChanged(object sender, EventArgs e)
+        {
 
-      
-
-        //FILTRO RAPIDO
-
-
-
+        }
     }
 }

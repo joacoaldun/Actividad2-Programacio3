@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.panelMenu = new System.Windows.Forms.Panel();
-            this.btnMarcasYCategorias = new System.Windows.Forms.Button();
-            this.btnListado = new System.Windows.Forms.Button();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnHome = new System.Windows.Forms.Button();
-            this.btnSalir = new System.Windows.Forms.Button();
             this.panelLogo = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.panelSuperior = new System.Windows.Forms.Panel();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.btnMinimiced = new System.Windows.Forms.Button();
             this.btnMacimiced = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.lblTitulo = new System.Windows.Forms.Label();
+            this.btnMarcas = new System.Windows.Forms.Button();
+            this.btnListado = new System.Windows.Forms.Button();
+            this.btnHome = new System.Windows.Forms.Button();
+            this.btnSalir = new System.Windows.Forms.Button();
             this.panelMenu.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.panelLogo.SuspendLayout();
@@ -50,7 +50,7 @@
             // panelMenu
             // 
             this.panelMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.panelMenu.Controls.Add(this.btnMarcasYCategorias);
+            this.panelMenu.Controls.Add(this.btnMarcas);
             this.panelMenu.Controls.Add(this.btnListado);
             this.panelMenu.Controls.Add(this.flowLayoutPanel1);
             this.panelMenu.Controls.Add(this.btnSalir);
@@ -61,41 +61,6 @@
             this.panelMenu.Size = new System.Drawing.Size(145, 557);
             this.panelMenu.TabIndex = 1;
             // 
-            // btnMarcasYCategorias
-            // 
-            this.btnMarcasYCategorias.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnMarcasYCategorias.FlatAppearance.BorderSize = 0;
-            this.btnMarcasYCategorias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMarcasYCategorias.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMarcasYCategorias.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnMarcasYCategorias.Image = global::WinForm.Properties.Resources.icons8_search_20;
-            this.btnMarcasYCategorias.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnMarcasYCategorias.Location = new System.Drawing.Point(0, 174);
-            this.btnMarcasYCategorias.Name = "btnMarcasYCategorias";
-            this.btnMarcasYCategorias.Size = new System.Drawing.Size(145, 69);
-            this.btnMarcasYCategorias.TabIndex = 2;
-            this.btnMarcasYCategorias.Text = " Marcas y Categorias";
-            this.btnMarcasYCategorias.UseVisualStyleBackColor = true;
-            this.btnMarcasYCategorias.Click += new System.EventHandler(this.btnMarcasYCategorias_Click);
-            // 
-            // btnListado
-            // 
-            this.btnListado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
-            this.btnListado.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnListado.FlatAppearance.BorderSize = 0;
-            this.btnListado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnListado.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnListado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnListado.Image = global::WinForm.Properties.Resources.icons8_regular_document_20;
-            this.btnListado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnListado.Location = new System.Drawing.Point(0, 127);
-            this.btnListado.Name = "btnListado";
-            this.btnListado.Size = new System.Drawing.Size(145, 47);
-            this.btnListado.TabIndex = 1;
-            this.btnListado.Text = "Listado";
-            this.btnListado.UseVisualStyleBackColor = false;
-            this.btnListado.Click += new System.EventHandler(this.btnListado_Click);
-            // 
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.Controls.Add(this.btnHome);
@@ -104,41 +69,6 @@
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(145, 47);
             this.flowLayoutPanel1.TabIndex = 8;
-            // 
-            // btnHome
-            // 
-            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnHome.FlatAppearance.BorderSize = 0;
-            this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnHome.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnHome.Image = global::WinForm.Properties.Resources.icons8_home_20;
-            this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHome.Location = new System.Drawing.Point(3, 3);
-            this.btnHome.Name = "btnHome";
-            this.btnHome.Size = new System.Drawing.Size(145, 47);
-            this.btnHome.TabIndex = 0;
-            this.btnHome.Text = "Home";
-            this.btnHome.UseVisualStyleBackColor = true;
-            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
-            // 
-            // btnSalir
-            // 
-            this.btnSalir.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.btnSalir.FlatAppearance.BorderSize = 0;
-            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(104)))), ((int)(((byte)(34)))), ((int)(((byte)(101)))));
-            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSalir.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSalir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnSalir.Image = global::WinForm.Properties.Resources.icons8_arrow_20;
-            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnSalir.Location = new System.Drawing.Point(0, 500);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(145, 57);
-            this.btnSalir.TabIndex = 3;
-            this.btnSalir.Text = "Salir";
-            this.btnSalir.UseVisualStyleBackColor = true;
-            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // panelLogo
             // 
@@ -175,6 +105,20 @@
             this.panelSuperior.TabIndex = 2;
             this.panelSuperior.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panelSuperior_MouseDown);
             // 
+            // lblTitulo
+            // 
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft New Tai Lue", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.lblTitulo.Location = new System.Drawing.Point(385, 13);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(184, 29);
+            this.lblTitulo.TabIndex = 0;
+            this.lblTitulo.Text = "MENU PRINCIPAL";
+            this.lblTitulo.Click += new System.EventHandler(this.label1_Click);
+            this.lblTitulo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitulo_MouseDown);
+            // 
             // btnMinimiced
             // 
             this.btnMinimiced.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -197,7 +141,7 @@
             this.btnMacimiced.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMacimiced.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMacimiced.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.btnMacimiced.Image = global::WinForm.Properties.Resources.icons8_expand_25;
+            this.btnMacimiced.Image = global::WinForm.Properties.Resources.icons8_maximize_window_201;
             this.btnMacimiced.Location = new System.Drawing.Point(930, 7);
             this.btnMacimiced.Name = "btnMacimiced";
             this.btnMacimiced.Size = new System.Drawing.Size(38, 35);
@@ -212,7 +156,7 @@
             this.btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClose.ForeColor = System.Drawing.Color.MediumAquamarine;
-            this.btnClose.Image = global::WinForm.Properties.Resources.icons8_xbox_x_25;
+            this.btnClose.Image = global::WinForm.Properties.Resources.icons8_close_window_20;
             this.btnClose.Location = new System.Drawing.Point(974, 8);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(38, 35);
@@ -220,19 +164,75 @@
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // lblTitulo
+            // btnMarcas
             // 
-            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft New Tai Lue", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.lblTitulo.Location = new System.Drawing.Point(385, 13);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(184, 29);
-            this.lblTitulo.TabIndex = 0;
-            this.lblTitulo.Text = "MENU PRINCIPAL";
-            this.lblTitulo.Click += new System.EventHandler(this.label1_Click);
-            this.lblTitulo.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lblTitulo_MouseDown);
+            this.btnMarcas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnMarcas.FlatAppearance.BorderSize = 0;
+            this.btnMarcas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnMarcas.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMarcas.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnMarcas.Image = global::WinForm.Properties.Resources.cat;
+            this.btnMarcas.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnMarcas.Location = new System.Drawing.Point(0, 174);
+            this.btnMarcas.Name = "btnMarcas";
+            this.btnMarcas.Size = new System.Drawing.Size(145, 63);
+            this.btnMarcas.TabIndex = 2;
+            this.btnMarcas.Text = "Marcas y categorias";
+            this.btnMarcas.UseVisualStyleBackColor = true;
+            this.btnMarcas.Click += new System.EventHandler(this.btnMarcasYCategorias_Click);
+            // 
+            // btnListado
+            // 
+            this.btnListado.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.btnListado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnListado.FlatAppearance.BorderSize = 0;
+            this.btnListado.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnListado.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnListado.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnListado.Image = global::WinForm.Properties.Resources.icons8_regular_document_20;
+            this.btnListado.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnListado.Location = new System.Drawing.Point(0, 127);
+            this.btnListado.Name = "btnListado";
+            this.btnListado.Size = new System.Drawing.Size(145, 47);
+            this.btnListado.TabIndex = 1;
+            this.btnListado.Text = "Articulos";
+            this.btnListado.UseVisualStyleBackColor = false;
+            this.btnListado.Click += new System.EventHandler(this.btnListado_Click);
+            // 
+            // btnHome
+            // 
+            this.btnHome.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHome.FlatAppearance.BorderSize = 0;
+            this.btnHome.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHome.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHome.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnHome.Image = global::WinForm.Properties.Resources.icons8_home_20;
+            this.btnHome.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHome.Location = new System.Drawing.Point(3, 3);
+            this.btnHome.Name = "btnHome";
+            this.btnHome.Size = new System.Drawing.Size(145, 47);
+            this.btnHome.TabIndex = 0;
+            this.btnHome.Text = "Home";
+            this.btnHome.UseVisualStyleBackColor = true;
+            this.btnHome.Click += new System.EventHandler(this.btnHome_Click);
+            // 
+            // btnSalir
+            // 
+            this.btnSalir.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.btnSalir.FlatAppearance.BorderSize = 0;
+            this.btnSalir.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(104)))), ((int)(((byte)(34)))), ((int)(((byte)(101)))));
+            this.btnSalir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSalir.Font = new System.Drawing.Font("Microsoft Tai Le", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSalir.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnSalir.Image = global::WinForm.Properties.Resources.icons8_arrow_20;
+            this.btnSalir.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnSalir.Location = new System.Drawing.Point(0, 500);
+            this.btnSalir.Name = "btnSalir";
+            this.btnSalir.Size = new System.Drawing.Size(145, 57);
+            this.btnSalir.TabIndex = 3;
+            this.btnSalir.Text = "Salir";
+            this.btnSalir.UseVisualStyleBackColor = true;
+            this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
             // MenuPrincipal
             // 
@@ -264,7 +264,7 @@
 
         private System.Windows.Forms.Panel panelMenu;
         private System.Windows.Forms.Button btnSalir;
-        private System.Windows.Forms.Button btnMarcasYCategorias;
+        private System.Windows.Forms.Button btnMarcas;
         private System.Windows.Forms.Button btnListado;
         private System.Windows.Forms.Panel panelLogo;
         private System.Windows.Forms.Panel panelSuperior;

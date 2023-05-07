@@ -53,17 +53,23 @@
     <Compile Include="AgregarArticulo.Designer.cs">
       <DependentUpon>AgregarArticulo.cs</DependentUpon>
     </Compile>
-    <Compile Include="AgregarMarcaYCategoria.cs">
+    <Compile Include="AgregarCategoriaYMarca.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AgregarMarcaYCategoria.Designer.cs">
-      <DependentUpon>AgregarMarcaYCategoria.cs</DependentUpon>
+    <Compile Include="AgregarCategoriaYMarca.Designer.cs">
+      <DependentUpon>AgregarCategoriaYMarca.cs</DependentUpon>
     </Compile>
     <Compile Include="Consultas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Consultas.Designer.cs">
       <DependentUpon>Consultas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Descripcion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Descripcion.Designer.cs">
+      <DependentUpon>Descripcion.cs</DependentUpon>
     </Compile>
     <Compile Include="frmAgregarImagen.cs">
       <SubType>Form</SubType>
@@ -89,16 +95,31 @@
     <Compile Include="MenuPrincipal.Designer.cs">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModificarCategoria.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarCategoria.Designer.cs">
+      <DependentUpon>ModificarCategoria.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarMarca.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarMarca.Designer.cs">
+      <DependentUpon>ModificarMarca.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AgregarArticulo.resx">
       <DependentUpon>AgregarArticulo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AgregarMarcaYCategoria.resx">
-      <DependentUpon>AgregarMarcaYCategoria.cs</DependentUpon>
+    <EmbeddedResource Include="AgregarCategoriaYMarca.resx">
+      <DependentUpon>AgregarCategoriaYMarca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Consultas.resx">
       <DependentUpon>Consultas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Descripcion.resx">
+      <DependentUpon>Descripcion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmAgregarImagen.resx">
       <DependentUpon>frmAgregarImagen.cs</DependentUpon>
@@ -111,6 +132,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="MenuPrincipal.resx">
       <DependentUpon>MenuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarCategoria.resx">
+      <DependentUpon>ModificarCategoria.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarMarca.resx">
+      <DependentUpon>ModificarMarca.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -219,6 +246,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-xbox-x-251.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-close-window-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-maximize-window-20.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-maximize-window-201.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

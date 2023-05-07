@@ -53,6 +53,38 @@ namespace WinForm
 
         }
 
+        //VALIDACIONES
+        private bool soloNumeros(string cadena)
+        {
+            foreach (char caracter in cadena)
+            {
+                if ((char.IsNumber(caracter)))
+                    return true;
+            }
+            return false;
+        }
+
+        private bool validarAgregarModificar()
+        {   
+            if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtPrecio.Text) || cbxMarca.SelectedIndex<0 || cbxCategoria.SelectedIndex < 0)
+            {
+                MessageBox.Show("Por favor ingresá los campos obligatorios");
+                return false;
+            }
+
+            if (!soloNumeros(txtPrecio.Text))
+            {
+                MessageBox.Show("Solo se aceptan números para filtrar un campo numerico");
+                return false;
+            }
+
+            return true;
+        }
+
+
+
+
+
         //MOVER VENTANA
         //Para que el panel superior maneje el movimiento de la ventana
 
@@ -123,64 +155,67 @@ namespace WinForm
         {
            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articulo = new Articulo();
-           
-            try
-            {
-                articulo.CodigoArticulo = txtCodigo.Text;
+
+            //if (validarAgregarModificar())
+            
+                try
+                {
+                    if (validarAgregarModificar())
+                    {
+
+                    articulo.CodigoArticulo = txtCodigo.Text;
+
+                    articulo.Nombre = txtNombre.Text;
+
+                    articulo.Descripcion = txtDescripcion.Text;
+
+                    articulo.Precio = decimal.Parse(txtPrecio.Text);
+
+                    articulo.Marcas = (Marca)cbxMarca.SelectedItem;
+
+                    articulo.Categorias = (Categoria)cbxCategoria.SelectedItem;
+
+
+                    if (lista.Count == 0)
+                    {
+                        articulo.imagenes = new List<string>();
+                        articulo.imagenes.Add(txtUrlImagenes.Text);
+                    }
+                    else
+                    {
+                        articulo.imagenes = lista;
+                    }
+
+
+
+
+
+                    if (articulo.Id != 0)
+                    {
+                        articuloNegocio.Modificar(articulo);
+                        MessageBox.Show("Articulo modificado exitosamente");
+
+                    }
+                    else
+                    {
+                        articuloNegocio.Agregar(articulo);
+                        articuloNegocio.AgregarImagenes(articulo);
+                        MessageBox.Show("Articulo agregado exitosamente");
+                    }
+
+
+
+
+
+                    Close();
+
+
+                }
+
+
+            }
+            
                 
-                articulo.Nombre = txtNombre.Text;
-                
-                articulo.Descripcion = txtDescripcion.Text;
-
-                articulo.Precio = decimal.Parse(txtPrecio.Text);    
-
-                articulo.Marcas = (Marca)cbxMarca.SelectedItem;
-
-                articulo.Categorias = (Categoria)cbxCategoria.SelectedItem;
-
-
-                //CARGO TODAS LAS URLS EN UN MISMO TEXTBOX Y LAS SEPARO POR COMAS, LUEGO LAS GUARDO EN UN ARRAY.
-                           
-              if(lista.Count == 0)
-                {
-                     articulo.imagenes = new List<string>();
-                     articulo.imagenes.Add(txtUrlImagenes.Text);
-                }
-              else 
-                {
-                    articulo.imagenes = lista;                
-                }
-              
-                //string urlsText = txtUrlImagenes.Text;
-
-                //string[] urls = urlsText.Split(',');
-
-                // Agregar cada URL a la lista de URLs de Articulo
-                //foreach (string url in urls)
-                //{
-                //CON EL METODO TRIM() QUITO LOS ESPACIOS QUE QUEDAN LUEGO DEL SPLIT
-                //    string cleanUrl = url.Trim();
-                //    articulo.imagenes.Add(cleanUrl);
-                //}
-
-
-                if (articulo.Id != 0)
-                {
-                    articuloNegocio.Modificar(articulo);
-                    MessageBox.Show("Articulo modificado exitosamente");
-
-                }
-                else
-                {
-                    articuloNegocio.Agregar(articulo);
-                    articuloNegocio.AgregarImagenes(articulo);
-                    MessageBox.Show("Articulo agregado exitosamente");
-                }
-
-                Close();
-
-               
-              }
             catch (Exception ex)
             {
 
@@ -211,41 +246,44 @@ namespace WinForm
             string url;
             string urlEscapada;
 
-            if (posicionLeave == 0)
-            { 
-            url = txtUrlImagenes.Text;
-            urlEscapada = Uri.EscapeUriString(url);
-            }
-            else {
-                url = lista[posicionLeave].ToString();
-                urlEscapada = Uri.EscapeUriString(url);
-            }   
-            
-            try
+           
+
+            //Validamos que el textbox tenga algo cargado para agregarlo a la lista, si no no lo agregamos
+            if (!string.IsNullOrEmpty(txtUrlImagenes.Text))
             {
-                using (var webClient = new System.Net.WebClient())
+
+                lista.Add(txtUrlImagenes.Text);
+
+                url = lista[posicionLeave];
+                urlEscapada = Uri.EscapeUriString(url);
+
+                try
                 {
-                    var imagenDescargada = webClient.DownloadData(urlEscapada);
-                    using (var stream = new MemoryStream(imagenDescargada))
+                    using (var webClient = new System.Net.WebClient())
                     {
-                        pbxImagen.Image = Image.FromStream(stream);
+                        var imagenDescargada = webClient.DownloadData(urlEscapada);
+                        using (var stream = new MemoryStream(imagenDescargada))
+                        {
+                            pbxImagen.Image = Image.FromStream(stream);
+                        }
                     }
+                    posicionLeave++;
+                    //posicionLeave ++;
+                }
+                catch (Exception ex)
+                {
+                    // Construir la ruta de la imagen de respaldo 
+                    string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+
+                    // Cargar la imagen 
+                    pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+
                 }
 
-                posicionLeave += 1;
-            }
-            catch (Exception ex)
-            {
-                // Construir la ruta de la imagen de respaldo 
-                string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
-
-                // Cargar la imagen 
-                pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
-
+              
 
             }
 
-            //Enviar mensaje a General
 
         }
 
@@ -271,11 +309,17 @@ namespace WinForm
 
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
-            lista.Add(txtUrlImagenes.Text);
-            txtUrlImagenes.Clear();
             
+            txtUrlImagenes.Clear();
             
         }
 
+        private void btnModificarImagen_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
+
+
+
 }
