@@ -359,33 +359,7 @@ namespace Negocio
             }
         }
 
-        public void AgregarMasImagenes(int id, string url)
-        {
-
-            AccesoDatos datos = new AccesoDatos();
-
-            try
-            {
-
-                datos.setearConsulta("INSERT into imagenes(IdArticulo,ImagenUrl) values(@IdArticulo,@ImagenUrl)");
-                datos.setearParametros("@IdArticulo", id);
-                datos.setearParametros("ImagenUrl", url);
-                datos.ejecutarAccion();
-
-
-            }
-            catch (Exception)
-            {
-
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
-
-
-        }
+        
 
         public int BuscarUltimoId() {
 
@@ -436,8 +410,11 @@ namespace Negocio
                 
                 foreach (var item in articulo.imagenes)
                 {
-                    datos.setearConsulta("insert into imagenes(idArticulo, ImagenUrl) values ("+ idArticulo +", '" + item.ToString()  + "' )");
-                    datos.ejecutarAccion();
+                    if (item != "placeHolder.jpeg")
+                    {
+                        datos.setearConsulta("insert into imagenes(idArticulo, ImagenUrl) values (" + idArticulo + ", '" + item.ToString() + "' )");
+                        datos.ejecutarAccion();
+                    }
                 }
 
                
@@ -453,7 +430,65 @@ namespace Negocio
         
         
         }
+        public void modificarImagen(Articulo articulo,List<string> viejasImagenes) {
 
+            AccesoDatos datos = new AccesoDatos();
+            int posicion = 0;
+
+            try
+            {
+                foreach (var item in articulo.imagenes)
+                {
+
+
+                    datos.setearConsulta("Update imagenes set ImagenUrl = '"+item.ToString() +"' where ImagenUrl = @imagenVieja and idArticulo = @id");
+                    
+                    datos.setearParametros("@imagenVieja", viejasImagenes[posicion].ToString());
+                    datos.setearParametros("@id", articulo.Id);
+                    
+                    
+                    posicion++;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally {
+                datos.cerrarConexion();
+            }
+
+        }
+
+        public void eliminarImagenes(Articulo articulo,int posicion) {
+
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+
+                datos.setearConsulta("Delete from Imagenes where idArticulo = @id and ImagenUrl = @urlImagen");
+                datos.setearParametros("@id", articulo.Id);
+                datos.setearParametros("@urlImagen", articulo.imagenes[posicion].ToString());
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally {
+
+                datos.cerrarConexion();
+
+            
+            }
+
+        
+        
+        }
               
 
     }

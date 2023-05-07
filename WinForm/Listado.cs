@@ -195,7 +195,7 @@ namespace WinForm
                 
                 pbxArticulo.Load(imagen);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 pbxArticulo.Load("https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg");
 
@@ -227,10 +227,10 @@ namespace WinForm
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -272,10 +272,10 @@ namespace WinForm
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
@@ -316,10 +316,10 @@ namespace WinForm
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                         // Cargar la imagen 
                         pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo

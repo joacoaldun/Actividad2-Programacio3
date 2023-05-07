@@ -50,6 +50,9 @@
             this.btnModificarImagen = new System.Windows.Forms.Button();
             this.btnAgregarImagen = new System.Windows.Forms.Button();
             this.pbxImagen = new System.Windows.Forms.PictureBox();
+            this.btnDerecho = new System.Windows.Forms.Button();
+            this.btnIzquierdo = new System.Windows.Forms.Button();
+            this.btnEliminarImagen = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
@@ -177,7 +180,7 @@
             this.btnAceptar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAceptar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btnAceptar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnAceptar.Location = new System.Drawing.Point(156, 401);
+            this.btnAceptar.Location = new System.Drawing.Point(108, 401);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(112, 31);
             this.btnAceptar.TabIndex = 13;
@@ -191,7 +194,7 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.btnCancelar.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnCancelar.Location = new System.Drawing.Point(311, 401);
+            this.btnCancelar.Location = new System.Drawing.Point(265, 401);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(112, 31);
             this.btnCancelar.TabIndex = 14;
@@ -250,9 +253,9 @@
             this.btnModificarImagen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnModificarImagen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.btnModificarImagen.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.btnModificarImagen.Location = new System.Drawing.Point(430, 361);
+            this.btnModificarImagen.Location = new System.Drawing.Point(442, 390);
             this.btnModificarImagen.Name = "btnModificarImagen";
-            this.btnModificarImagen.Size = new System.Drawing.Size(131, 28);
+            this.btnModificarImagen.Size = new System.Drawing.Size(100, 28);
             this.btnModificarImagen.TabIndex = 19;
             this.btnModificarImagen.Text = "Modificar Imagen";
             this.btnModificarImagen.UseVisualStyleBackColor = false;
@@ -281,12 +284,49 @@
             this.pbxImagen.TabIndex = 16;
             this.pbxImagen.TabStop = false;
             // 
+            // btnDerecho
+            // 
+            this.btnDerecho.Location = new System.Drawing.Point(497, 361);
+            this.btnDerecho.Name = "btnDerecho";
+            this.btnDerecho.Size = new System.Drawing.Size(36, 23);
+            this.btnDerecho.TabIndex = 21;
+            this.btnDerecho.Text = "=>";
+            this.btnDerecho.UseVisualStyleBackColor = true;
+            this.btnDerecho.Click += new System.EventHandler(this.btnDerecho_Click);
+            // 
+            // btnIzquierdo
+            // 
+            this.btnIzquierdo.Location = new System.Drawing.Point(456, 361);
+            this.btnIzquierdo.Name = "btnIzquierdo";
+            this.btnIzquierdo.Size = new System.Drawing.Size(35, 23);
+            this.btnIzquierdo.TabIndex = 22;
+            this.btnIzquierdo.Text = "<=";
+            this.btnIzquierdo.UseVisualStyleBackColor = true;
+            this.btnIzquierdo.Click += new System.EventHandler(this.btnIzquierdo_Click);
+            // 
+            // btnEliminarImagen
+            // 
+            this.btnEliminarImagen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(76)))));
+            this.btnEliminarImagen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminarImagen.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.btnEliminarImagen.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.btnEliminarImagen.Location = new System.Drawing.Point(442, 436);
+            this.btnEliminarImagen.Name = "btnEliminarImagen";
+            this.btnEliminarImagen.Size = new System.Drawing.Size(100, 28);
+            this.btnEliminarImagen.TabIndex = 23;
+            this.btnEliminarImagen.Text = "Eliminar Imagen";
+            this.btnEliminarImagen.UseVisualStyleBackColor = false;
+            this.btnEliminarImagen.Click += new System.EventHandler(this.btnEliminarImagen_Click);
+            // 
             // AgregarArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveCaption;
             this.ClientSize = new System.Drawing.Size(611, 460);
+            this.Controls.Add(this.btnEliminarImagen);
+            this.Controls.Add(this.btnIzquierdo);
+            this.Controls.Add(this.btnDerecho);
             this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.btnModificarImagen);
             this.Controls.Add(this.panel1);
@@ -343,5 +383,8 @@
         private System.Windows.Forms.Button btnSalirAgregar;
         private System.Windows.Forms.Button btnModificarImagen;
         private System.Windows.Forms.Button btnAgregarImagen;
+        private System.Windows.Forms.Button btnDerecho;
+        private System.Windows.Forms.Button btnIzquierdo;
+        private System.Windows.Forms.Button btnEliminarImagen;
     }
 }

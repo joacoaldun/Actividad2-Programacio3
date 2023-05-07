@@ -41,26 +41,26 @@ namespace WinForm
 
         }
 
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+        //private void btnAceptar_Click(object sender, EventArgs e)
+        //{
+        //    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
 
-            try
-            {
-                articulo.imagenes = new List<string>();
-                articulo.imagenes.Add(txtUrl2.Text);
+        //    try
+        //    {
+        //        articulo.imagenes = new List<string>();
+        //        articulo.imagenes.Add(txtUrl2.Text);
 
-                articuloNegocio.AgregarMasImagenes(articulo.Id, txtUrl2.Text);
-                MessageBox.Show("Imagen agregada exitosamente");
+        //        articuloNegocio.AgregarMasImagenes(articulo.Id, txtUrl2.Text);
+        //        MessageBox.Show("Imagen agregada exitosamente");
 
-                Close();
+        //        Close();
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error al cargar la imagen");
-            }
-        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Error al cargar la imagen");
+        //    }
+        //}
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {

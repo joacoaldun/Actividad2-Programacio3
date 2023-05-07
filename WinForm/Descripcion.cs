@@ -50,7 +50,7 @@ namespace WinForm
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Construir la ruta de la imagen de respaldo 
                 string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
@@ -131,7 +131,7 @@ namespace WinForm
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
                         string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
@@ -175,7 +175,7 @@ namespace WinForm
                             }
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
                         string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");

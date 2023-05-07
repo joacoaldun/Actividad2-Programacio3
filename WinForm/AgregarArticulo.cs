@@ -18,22 +18,34 @@ namespace WinForm
 {
     public partial class AgregarArticulo : Form
     {
-        
+
         private Articulo articulo = null;
         private List<string> lista = new List<string>();
-
+        private int imagenActual = 0;
+        private int imagenModificar=0;
+        
+       //Lista donde vamos a guardar los viejos urls, antes de ser modificados, para podes usarlos como parametro en el update contra base de datos
+        private List<string> listaParaModificar=new List<string>();
+        
+        //Contador que vamos a usar en el boton de modificar imagen, para ir moviendo el indice de donde vamos guardando las imagenes que van a ser modificadas
+        int contador = 0;
+        
+        
         int posicionLeave = 0;
+
+       
         public AgregarArticulo()
         {
 
             InitializeComponent();
-            this.FormBorderStyle= FormBorderStyle.None;
+
+            this.FormBorderStyle = FormBorderStyle.None;
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;//Limita el area para mover la ventana
-            btnModificarImagen.Visible = false;
             
+
             //MOVER VENTANA                   
-        
+
         }
 
         public AgregarArticulo(Articulo articulo)
@@ -43,9 +55,7 @@ namespace WinForm
             this.ControlBox = false;
             this.MaximizedBounds = Screen.FromHandle(this.Handle).WorkingArea;
             this.articulo = articulo;
-            txtUrlImagenes.Visible = false;
-            lblUrl.Visible = false;
-            btnAgregarImagen.Visible = false;
+           
             label8.Text = "MODIFICAR ARTICULO";
 
 
@@ -65,8 +75,8 @@ namespace WinForm
         }
 
         private bool validarAgregarModificar()
-        {   
-            if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtPrecio.Text) || cbxMarca.SelectedIndex<0 || cbxCategoria.SelectedIndex < 0)
+        {
+            if (string.IsNullOrEmpty(txtCodigo.Text) || string.IsNullOrEmpty(txtNombre.Text) || string.IsNullOrEmpty(txtPrecio.Text) || cbxMarca.SelectedIndex < 0 || cbxCategoria.SelectedIndex < 0)
             {
                 MessageBox.Show("Por favor ingresá los campos obligatorios");
                 return false;
@@ -117,11 +127,13 @@ namespace WinForm
                 cbxMarca.DataSource = marcaNegocio.listar();
                 cbxMarca.ValueMember = "Id";
                 cbxMarca.DisplayMember = "NombreMarca";
+                cbxMarca.SelectedIndex = -1;
+
 
                 cbxCategoria.DataSource = categoriaNegocio.listar();
                 cbxCategoria.ValueMember = "Id";
                 cbxCategoria.DisplayMember = "NombreCategoria";
-              
+                cbxCategoria.SelectedIndex = -1;
                 pbxImagen.Load(imagenUrl);
 
                 if (articulo != null)
@@ -130,10 +142,11 @@ namespace WinForm
                     txtNombre.Text = articulo.Nombre;
                     txtDescripcion.Text = articulo.Descripcion;
                     txtPrecio.Text = articulo.Precio.ToString();
-                    txtUrlImagenes.Text = articulo.imagenes[0].ToString();
+                    
                     cargarImagen(articulo.imagenes[0].ToString());
                     cbxCategoria.SelectedValue = articulo.Categorias.Id;
                     cbxMarca.SelectedValue = articulo.Marcas.Id;
+                    lista = articulo.imagenes;
 
                 }
 
@@ -142,7 +155,7 @@ namespace WinForm
             {
                 throw ex;
             }
-           
+
 
         }
 
@@ -153,15 +166,15 @@ namespace WinForm
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-           ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articulo = new Articulo();
 
             //if (validarAgregarModificar())
-            
-                try
+
+            try
+            {
+                if (validarAgregarModificar())
                 {
-                    if (validarAgregarModificar())
-                    {
 
                     articulo.CodigoArticulo = txtCodigo.Text;
 
@@ -193,6 +206,7 @@ namespace WinForm
                     if (articulo.Id != 0)
                     {
                         articuloNegocio.Modificar(articulo);
+                        articuloNegocio.modificarImagen(articulo, listaParaModificar);
                         MessageBox.Show("Articulo modificado exitosamente");
 
                     }
@@ -214,8 +228,8 @@ namespace WinForm
 
 
             }
-            
-                
+
+
             catch (Exception ex)
             {
 
@@ -243,46 +257,7 @@ namespace WinForm
 
         private void txtUrlImagenes_Leave(object sender, EventArgs e)
         {
-            string url;
-            string urlEscapada;
-
-           
-
-            //Validamos que el textbox tenga algo cargado para agregarlo a la lista, si no no lo agregamos
-            if (!string.IsNullOrEmpty(txtUrlImagenes.Text))
-            {
-
-                lista.Add(txtUrlImagenes.Text);
-
-                url = lista[posicionLeave];
-                urlEscapada = Uri.EscapeUriString(url);
-
-                try
-                {
-                    using (var webClient = new System.Net.WebClient())
-                    {
-                        var imagenDescargada = webClient.DownloadData(urlEscapada);
-                        using (var stream = new MemoryStream(imagenDescargada))
-                        {
-                            pbxImagen.Image = Image.FromStream(stream);
-                        }
-                    }
-                    posicionLeave++;
-                    //posicionLeave ++;
-                }
-                catch (Exception ex)
-                {
-                    // Construir la ruta de la imagen de respaldo 
-                    string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpg");
-
-                    // Cargar la imagen 
-                    pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
-
-                }
-
-              
-
-            }
+            
 
 
         }
@@ -309,17 +284,205 @@ namespace WinForm
 
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
-            
+
+
+            string url;
+            string urlEscapada;
+
+
+
+            //Validamos que el textbox tenga algo cargado para agregarlo a la lista, si no no lo agregamos
+            if (!string.IsNullOrEmpty(txtUrlImagenes.Text))
+            {
+
+                lista.Add(txtUrlImagenes.Text);
+
+                url = lista[posicionLeave];
+                urlEscapada = Uri.EscapeUriString(url);
+
+                try
+                {
+                    using (var webClient = new System.Net.WebClient())
+                    {
+                        var imagenDescargada = webClient.DownloadData(urlEscapada);
+                        using (var stream = new MemoryStream(imagenDescargada))
+                        {
+                            pbxImagen.Image = Image.FromStream(stream);
+                        }
+                    }
+                    posicionLeave++;
+                    //posicionLeave ++;
+                }
+                catch (Exception)
+                {
+                    // Construir la ruta de la imagen de respaldo 
+                    string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                    // Cargar la imagen 
+                    pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+
+                }
+
+
+
+            }
+
+
+
             txtUrlImagenes.Clear();
-            
+
         }
 
         private void btnModificarImagen_Click(object sender, EventArgs e)
         {
-           
+            string url;
+            string urlEscapada;
+            //Guardo el url viejo antes de ser modificado, y muevo el indice 1, para un futuro click nuevo en el boton ModificarImagen
+
+            string prueba;
+
+            prueba = lista[imagenActual];
+
+
+            listaParaModificar.Add(prueba);
+            
+
+            lista[imagenActual] = txtUrlImagenes.Text;
+            
+            url = lista[imagenActual];
+            urlEscapada = Uri.EscapeUriString(url);
+
+            try
+            {
+                using (var webClient = new System.Net.WebClient())
+                {
+                    var imagenDescargada = webClient.DownloadData(urlEscapada);
+                    using (var stream = new MemoryStream(imagenDescargada))
+                    {
+                        pbxImagen.Image = Image.FromStream(stream);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                // Construir la ruta de la imagen de respaldo 
+                string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                // Cargar la imagen 
+                pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+
+            }
+            txtUrlImagenes.Clear();
+
         }
+
+        private void btnIzquierdo_Click(object sender, EventArgs e)
+        {
+                
+
+
+                if (lista != null)
+            {
+               
+                if (lista.Count >= imagenActual && lista.Count > 0)
+                {
+                    imagenActual--;
+                    if (imagenActual < 0)
+                    {
+                        imagenActual = lista.Count - 1;
+                    }
+
+
+                    try
+                    {
+                        pbxImagen.Load(lista[imagenActual]);
+                        imagenModificar = imagenActual;
+                    }
+                    catch (Exception)
+                    {
+                        // Construir la ruta de la imagen de respaldo 
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                        // Cargar la imagen 
+                        pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                    }
+
+
+                }
+            }
+        }
+
+        private void btnDerecho_Click(object sender, EventArgs e)
+        {
+            if (lista != null)
+            {
+               
+
+                if (lista.Count > imagenActual)
+                {
+                    imagenActual++;
+                    if (imagenActual >= lista.Count)
+                    {
+                        imagenActual = 0;
+
+
+                    }
+
+
+                    try
+                    {
+                        pbxImagen.Load(lista[imagenActual]);
+                        imagenModificar = imagenActual;
+
+                    }
+                    catch (Exception)
+                    {
+                        // Construir la ruta de la imagen de respaldo 
+                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                        // Cargar la imagen 
+                        pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                    }
+
+
+                }
+
+
+            }
+        }
+
+        private void btnEliminarImagen_Click(object sender, EventArgs e)
+        {
+            
+            if(articulo != null) {
+               ArticuloNegocio negocio = new ArticuloNegocio();
+
+
+                negocio.eliminarImagenes(articulo, imagenActual);
+
+                pbxImagen.Invalidate();
+                pbxImagen.Update();
+                
+                return;
+            }
+            
+            
+            
+            lista[imagenModificar] = "placeHolder.jpeg";
+            
+            pbxImagen.Invalidate();
+            pbxImagen.Update();
+
+
+
+
+
+
+
+        }   
     }
-
-
-
 }
+
+
+
+
