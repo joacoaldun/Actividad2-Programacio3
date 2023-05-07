@@ -24,6 +24,7 @@ namespace WinForm
         private int imagenActual = 0;
         private int imagenModificar=0;
         
+        
        //Lista donde vamos a guardar los viejos urls, antes de ser modificados, para podes usarlos como parametro en el update contra base de datos
         private List<string> listaParaModificar=new List<string>();
         
@@ -475,11 +476,44 @@ namespace WinForm
 
 
 
+        }
 
+        private void activarAceptar()
+        {
+            if (!string.IsNullOrEmpty(txtCodigo.Text) && !string.IsNullOrEmpty(txtNombre.Text) && !string.IsNullOrEmpty(txtPrecio.Text) && cbxMarca.SelectedIndex > 0 && cbxCategoria.SelectedIndex > 0)
+            {
 
+                //MessageBox.Show("Por favor ingresá los campos obligatorios");
+                btnAceptar.Enabled = true;
+            }
+            else { btnAceptar.Enabled = false; }
 
+        }
 
-        }   
+        private void txtCodigo_Leave(object sender, EventArgs e)
+        {
+            activarAceptar();
+        }
+
+        private void txtNombre_Leave(object sender, EventArgs e)
+        {
+            activarAceptar();
+        }
+
+        private void txtPrecio_Leave(object sender, EventArgs e)
+        {
+            activarAceptar();
+        }
+
+        private void cbxMarca_Leave(object sender, EventArgs e)
+        {
+            activarAceptar();
+        }
+
+        private void cbxCategoria_Leave(object sender, EventArgs e)
+        {
+            activarAceptar();
+        }
     }
 }
 

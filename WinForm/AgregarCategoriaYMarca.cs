@@ -51,7 +51,9 @@ namespace WinForm
             {
                 negocio.agregar(marca);
                 MessageBox.Show("¡Marca: " + txtAgregarMarca.Text + " agregada con exito!");
+                txtAgregarMarca.Clear();
                 cargar();
+
             }
             else
             {
@@ -97,6 +99,7 @@ namespace WinForm
             {
                 negocio.agregar(categoria);
                 MessageBox.Show("¡Categoria: " + txtAgregarCategoria.Text + " agregada con exito!");
+                txtAgregarCategoria.Clear();
                 cargar();
             }
             else

@@ -18,6 +18,8 @@ namespace WinForm
     {
 
         List<Articulo> listaArticulos = new List<Articulo>();
+        string rutaImagen = "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
+
 
         public Listado()
         {
@@ -230,10 +232,11 @@ namespace WinForm
                     catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        // string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        pbxArticulo.Load(rutaImagen);
 
                         // Cargar la imagen 
-                        pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                        // pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
 
 
                     }
@@ -275,10 +278,12 @@ namespace WinForm
                     catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        // string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                        pbxArticulo.Load(rutaImagen);
 
                         // Cargar la imagen 
-                        pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                        // pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
                     }
 
 
@@ -319,10 +324,12 @@ namespace WinForm
                     catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        // string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+
+                        pbxArticulo.Load(rutaImagen);
 
                         // Cargar la imagen 
-                        pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                        // pbxArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
                     }
 
                     
@@ -458,6 +465,17 @@ namespace WinForm
         private void txtFiltro_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnReiniciarLista_Click(object sender, EventArgs e)
+        {
+            cargar();
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Marcas");
+            cboCampo.Items.Add("Precio");
+            cboCampo.Items.Add("Categorias");
+            cboCampo.Items.Add("Descripcion");
+            cboCampo.Items.Add("Codigo Articulo");
         }
     }
 }
