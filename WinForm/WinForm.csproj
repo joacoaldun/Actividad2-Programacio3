@@ -71,12 +71,6 @@
     <Compile Include="Descripcion.Designer.cs">
       <DependentUpon>Descripcion.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmAgregarImagen.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmAgregarImagen.Designer.cs">
-      <DependentUpon>frmAgregarImagen.cs</DependentUpon>
-    </Compile>
     <Compile Include="Home.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -120,9 +114,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Descripcion.resx">
       <DependentUpon>Descripcion.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmAgregarImagen.resx">
-      <DependentUpon>frmAgregarImagen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Home.resx">
       <DependentUpon>Home.cs</DependentUpon>

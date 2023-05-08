@@ -382,7 +382,7 @@ namespace WinForm
                 MessageBox.Show("No hay artículos o imágenes disponibles para mostrar.");
             }
             dgvListaArticulos.DataSource = listaArticulos;
-            dgvListaArticulos.Columns["Id"].Visible = false;
+            //dgvListaArticulos.Columns["Id"].Visible = false;
 
 
         }

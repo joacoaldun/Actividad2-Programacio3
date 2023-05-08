@@ -168,12 +168,15 @@ namespace WinForm
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-            Articulo articulo = new Articulo();
+            
 
             //if (validarAgregarModificar())
 
             try
             {
+
+                  if (articulo == null) articulo = new Articulo();
+
                 if (validarAgregarModificar())
                 {
 

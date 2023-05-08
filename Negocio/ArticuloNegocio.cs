@@ -448,6 +448,7 @@ namespace Negocio
                     
                     
                     posicion++;
+                    datos.ejecutarAccion();
                 }
             }
             catch (Exception ex)
