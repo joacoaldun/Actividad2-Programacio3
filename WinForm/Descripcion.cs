@@ -16,8 +16,8 @@ namespace WinForm
     public partial class Descripcion : Form
     {
         private Articulo articulo = null;
-        string rutaImagen = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1362px-Placeholder_view_vector.svg.png";
-
+        //string rutaImagen = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/1362px-Placeholder_view_vector.svg.png";
+        string rutaImagen = "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
         public Descripcion()
         {
             InitializeComponent();
@@ -56,7 +56,7 @@ namespace WinForm
             {
                 // Construir la ruta de la imagen de respaldo 
                 //string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
-
+                //pcbArticulo.Load(rutaImagen);
                 pcbArticulo.Load(rutaImagen);
 
                 // Cargar la imagen 

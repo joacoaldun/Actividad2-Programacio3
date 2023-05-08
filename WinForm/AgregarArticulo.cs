@@ -18,7 +18,7 @@ namespace WinForm
 {
     public partial class AgregarArticulo : Form
     {
-
+        string rutaImagen = "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
         private Articulo articulo = null;
         private List<string> lista = new List<string>();
         private int imagenActual = 0;
@@ -210,7 +210,17 @@ namespace WinForm
                     if (articulo.Id != 0)
                     {
                         articuloNegocio.Modificar(articulo);
-                        articuloNegocio.modificarImagen(articulo, listaParaModificar);
+                        if (listaParaModificar.Count > 0)
+                        {
+
+                            if (!articuloNegocio.compararImagenes(articulo))
+                            {
+                                articuloNegocio.AgregarImagenes(articulo);
+                            }
+                            articuloNegocio.modificarImagen(articulo, listaParaModificar);
+
+
+                        }
                         MessageBox.Show("Articulo modificado exitosamente");
 
                     }
@@ -242,6 +252,8 @@ namespace WinForm
 
 
         }
+
+
 
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -323,7 +335,8 @@ namespace WinForm
                     string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
 
                     // Cargar la imagen 
-                    pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                    pbxImagen.Load(rutaImagen);
+                    //pbxImagen.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
 
                 }
 
@@ -495,27 +508,27 @@ namespace WinForm
 
         private void txtCodigo_Leave(object sender, EventArgs e)
         {
-            activarAceptar();
+            //activarAceptar();
         }
 
         private void txtNombre_Leave(object sender, EventArgs e)
         {
-            activarAceptar();
+            //activarAceptar();
         }
 
         private void txtPrecio_Leave(object sender, EventArgs e)
         {
-            activarAceptar();
+            //activarAceptar();
         }
 
         private void cbxMarca_Leave(object sender, EventArgs e)
         {
-            activarAceptar();
+            //activarAceptar();
         }
 
         private void cbxCategoria_Leave(object sender, EventArgs e)
         {
-            activarAceptar();
+            //activarAceptar();
         }
     }
 }

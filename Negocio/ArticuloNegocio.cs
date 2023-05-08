@@ -110,7 +110,7 @@ namespace Negocio
                 {
                     consulta=sumarFiltrosAConsulta("Precio", criterio, filtro, consulta);
                 }
-                else if (campo == "Codigo")
+                else if (campo == "Codigo Articulo")
                 {
                     consulta=sumarFiltrosAConsulta("Codigo", criterio, filtro, consulta);
                 }
@@ -445,9 +445,12 @@ namespace Negocio
                     
                     datos.setearParametros("@imagenVieja", viejasImagenes[posicion].ToString());
                     datos.setearParametros("@id", articulo.Id);
-                    
-                    
+
+                    if (viejasImagenes.Count > posicion)
+                    {
                     posicion++;
+
+                    }
                     datos.ejecutarAccion();
                 }
             }
@@ -490,6 +493,54 @@ namespace Negocio
         
         
         }
+
+
+
+        public bool compararImagenes(Articulo articulo)
+        {
+            List<string> listImag = new List<string>();
+            AccesoDatos datos = new AccesoDatos();
+
+            
+                try
+                {
+                    datos.setearConsulta("select imagenUrl from IMAGENES where idArticulo=@id");
+                    datos.setearParametros("@id", articulo.Id);
+                    datos.ejecutarConsulta();
+
+                    while (datos.Lector.Read()) { 
+
+                        listImag.Add((string)datos.Lector["imagenUrl"]);
+
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+
+            int posicion = 0;
+            foreach (var item in listImag)
+            {
+                if (item.ToString() == articulo.imagenes[posicion])
+                {
+                    return true;
+                }
+                if (articulo.imagenes.Count > posicion)
+                {
+                    posicion++;
+
+                }
+            }
+            
+
+
+
+
+            return false;
+        }
+
               
 
     }
