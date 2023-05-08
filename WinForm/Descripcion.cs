@@ -138,10 +138,11 @@ namespace WinForm
                     catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        //string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        pcbArticulo.Load(rutaImagen);
 
                         // Cargar la imagen 
-                        pcbArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                        //pcbArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
                     }
                 }
 
@@ -182,10 +183,11 @@ namespace WinForm
                     catch (Exception)
                     {
                         // Construir la ruta de la imagen de respaldo 
-                        string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        //string rutaImagenRespaldo = Path.Combine(Application.StartupPath, "placeHolder.jpeg");
+                        pcbArticulo.Load(rutaImagen);
 
                         // Cargar la imagen 
-                        pcbArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
+                        //pcbArticulo.Image = Image.FromFile(rutaImagenRespaldo);// Si ocurre un error al descargar la imagen, cargar una imagen de respaldo
                     }
 
 

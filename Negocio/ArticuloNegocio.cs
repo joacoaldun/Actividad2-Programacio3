@@ -302,6 +302,9 @@ namespace Negocio
                               
         }
 
+
+        
+
         public void Modificar(Articulo articulo)
         {
 
@@ -399,9 +402,11 @@ namespace Negocio
           }
         
         
-        public void AgregarImagenes(Articulo articulo) { 
-        
-           int idArticulo = BuscarUltimoId();
+        public void AgregarImagenes(Articulo articulo) {
+
+            int idArticulo= BuscarUltimoId();
+
+           
 
             AccesoDatos datos   =  new AccesoDatos();
 
@@ -430,6 +435,40 @@ namespace Negocio
         
         
         }
+
+        public void AgregarOtraImagen(Articulo articulo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                foreach (var item in articulo.imagenes)
+                {
+                    datos.setearConsulta("INSERT into IMAGENES (IdArticulo,ImagenUrl) values(@IdArticulo, @url)");
+
+                    datos.setearParametros("@IdArticulo", articulo.Id);
+                    datos.setearParametros("@url", item.ToString());
+                    
+
+
+                    datos.ejecutarAccion();
+                }
+                    
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+
+            }
+        }
+
+
+
         public void modificarImagen(Articulo articulo,List<string> viejasImagenes) {
 
             AccesoDatos datos = new AccesoDatos();
@@ -440,18 +479,20 @@ namespace Negocio
                 foreach (var item in articulo.imagenes)
                 {
 
-
-                    datos.setearConsulta("Update imagenes set ImagenUrl = '"+item.ToString() +"' where ImagenUrl = @imagenVieja and idArticulo = @id");
-                    
-                    datos.setearParametros("@imagenVieja", viejasImagenes[posicion].ToString());
-                    datos.setearParametros("@id", articulo.Id);
-
                     if (viejasImagenes.Count > posicion)
                     {
-                    posicion++;
+                       
+                        datos.setearConsulta("Update imagenes set ImagenUrl = '" + item.ToString() + "' where ImagenUrl = @imagenVieja and idArticulo = @id");
+
+                        datos.setearParametros("@imagenVieja", viejasImagenes[posicion].ToString());
+                        datos.setearParametros("@id", articulo.Id);
+                        datos.ejecutarAccion();
+                        posicion++;
 
                     }
-                    datos.ejecutarAccion();
+                    
+
+                    
                 }
             }
             catch (Exception ex)

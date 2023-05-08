@@ -16,7 +16,7 @@ namespace WinForm
 {
     public partial class Listado : Form
     {
-
+        private bool modificando = false;
         List<Articulo> listaArticulos = new List<Articulo>();
         string rutaImagen = "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
 
@@ -348,8 +348,8 @@ namespace WinForm
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            
-            AgregarArticulo agregarArticulo = new AgregarArticulo();
+            modificando = false;
+            AgregarArticulo agregarArticulo = new AgregarArticulo(modificando);
             agregarArticulo.ShowDialog();
             cargar();
 
@@ -358,7 +358,7 @@ namespace WinForm
             
         }
 
-        private void cargar() {
+        public void cargar() {
 
             ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulos = negocio.listar();
@@ -382,7 +382,7 @@ namespace WinForm
                 MessageBox.Show("No hay artículos o imágenes disponibles para mostrar.");
             }
             dgvListaArticulos.DataSource = listaArticulos;
-            //dgvListaArticulos.Columns["Id"].Visible = false;
+            dgvListaArticulos.Columns["Id"].Visible = false;
 
 
         }
@@ -417,9 +417,10 @@ namespace WinForm
             if (dgvListaArticulos.SelectedRows.Count > 0)
             {
 
+                modificando = true;
                 Articulo seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
 
-                AgregarArticulo articulo = new AgregarArticulo(seleccionado);
+                AgregarArticulo articulo = new AgregarArticulo(seleccionado, modificando);
                 articulo.ShowDialog();
             }
             else
@@ -476,6 +477,11 @@ namespace WinForm
             cboCampo.Items.Add("Categorias");
             cboCampo.Items.Add("Descripcion");
             cboCampo.Items.Add("Codigo Articulo");
+        }
+
+        private void dgvListaArticulos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
