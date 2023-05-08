@@ -43,7 +43,7 @@ namespace Negocio
                     int idMarcas = datos.Lector["IdMarca"] == DBNull.Value ? -1 : (int)datos.Lector["IdMarca"];
                     string marcas = datos.Lector["NombreMarca"] == DBNull.Value ? "Sin marca" : (string)datos.Lector["NombreMarca"];
 
-
+                     precio = Math.Round(precio, 2);
                     //Verificamos si el articulo existe
                     Articulo articulo = lista.FirstOrDefault(a => a.Id == id);
                     if (articulo == null)

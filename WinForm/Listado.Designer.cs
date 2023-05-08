@@ -46,6 +46,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.btnReiniciarLista = new System.Windows.Forms.Button();
             this.lblRefrescar = new System.Windows.Forms.Label();
+            this.btnVerDescripcion = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaArticulos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxArticulo)).BeginInit();
             this.SuspendLayout();
@@ -58,7 +59,7 @@
             this.dgvListaArticulos.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvListaArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvListaArticulos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dgvListaArticulos.Location = new System.Drawing.Point(47, 79);
+            this.dgvListaArticulos.Location = new System.Drawing.Point(48, 90);
             this.dgvListaArticulos.MultiSelect = false;
             this.dgvListaArticulos.Name = "dgvListaArticulos";
             this.dgvListaArticulos.RowHeadersWidth = 51;
@@ -258,7 +259,7 @@
             this.btnReiniciarLista.FlatAppearance.BorderSize = 0;
             this.btnReiniciarLista.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReiniciarLista.Location = new System.Drawing.Point(667, 37);
-            this.btnReiniciarLista.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnReiniciarLista.Margin = new System.Windows.Forms.Padding(2);
             this.btnReiniciarLista.Name = "btnReiniciarLista";
             this.btnReiniciarLista.Size = new System.Drawing.Size(25, 27);
             this.btnReiniciarLista.TabIndex = 19;
@@ -275,6 +276,16 @@
             this.lblRefrescar.TabIndex = 20;
             this.lblRefrescar.Text = "Limpiar Filtros:";
             // 
+            // btnVerDescripcion
+            // 
+            this.btnVerDescripcion.Location = new System.Drawing.Point(451, 37);
+            this.btnVerDescripcion.Name = "btnVerDescripcion";
+            this.btnVerDescripcion.Size = new System.Drawing.Size(124, 39);
+            this.btnVerDescripcion.TabIndex = 21;
+            this.btnVerDescripcion.Text = "Ver Descripcion Articulo";
+            this.btnVerDescripcion.UseVisualStyleBackColor = true;
+            this.btnVerDescripcion.Click += new System.EventHandler(this.btnVerDescripcion_Click);
+            // 
             // Listado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,6 +293,7 @@
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(1031, 506);
             this.ControlBox = false;
+            this.Controls.Add(this.btnVerDescripcion);
             this.Controls.Add(this.lblRefrescar);
             this.Controls.Add(this.btnReiniciarLista);
             this.Controls.Add(this.label3);
@@ -334,5 +346,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnReiniciarLista;
         private System.Windows.Forms.Label lblRefrescar;
+        private System.Windows.Forms.Button btnVerDescripcion;
     }
 }

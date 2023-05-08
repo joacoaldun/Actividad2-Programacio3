@@ -20,6 +20,7 @@ namespace WinForm
     {   
         public bool modificando=false;
         public bool aModificar = false;
+        public bool sinModificarImagen = true;
 
         string rutaImagen = "https://t3.ftcdn.net/jpg/02/48/42/64/240_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg";
         private Articulo articulo = null;
@@ -217,23 +218,27 @@ namespace WinForm
                         articulo.imagenes = new List<string>();
                         articulo.imagenes.Add(txtUrlImagenes.Text);
                     }
-                   
 
+                    if (articulo.Id != 0 && modificando == true && sinModificarImagen == true) 
+                    {
+                        articuloNegocio.Modificar(articulo);
+                        MessageBox.Show("Articulo modificado exitosamente");
+                    }
 
-                    if (articulo.Id != 0 && modificando == true && aModificar==true)
+                    else if (articulo.Id != 0 && modificando == true && aModificar == true)
                     {
                         articuloNegocio.Modificar(articulo);
                         articuloNegocio.modificarImagen(articulo, listaParaModificar);
                         MessageBox.Show("Articulo modificado exitosamente");
 
                     }
-                    else if(articulo.Id!=0 && modificando == true && aModificar == false)
-                        {
+                    else if (articulo.Id != 0 && modificando == true && aModificar == false)
+                    {
                         articulo.imagenes = listaAgregarImagenes;
                         articuloNegocio.AgregarOtraImagen(articulo);
-                            MessageBox.Show("Articulo modificado exitosamente");
+                        MessageBox.Show("Articulo modificado exitosamente");
                     }
-                     else if (articulo.Id==0 && modificando==false && aModificar==false)
+                    else if (articulo.Id == 0 && modificando == false && aModificar == false)
                     {
                         articulo.imagenes = lista;
                         articuloNegocio.Agregar(articulo);
@@ -265,13 +270,13 @@ namespace WinForm
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Verificar si la tecla presionada es un número o un punto decimal
-            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar != '.')
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != '\b' && e.KeyChar != ',')
             {
                 // Cancelar el evento si la tecla no es un número o un punto decimal
                 e.Handled = true;
             }
             // Si la tecla es un punto decimal, verificar que el TextBox no tenga ya un punto decimal
-            else if (e.KeyChar == '.' && (sender as System.Windows.Forms.TextBox).Text.Contains('.'))
+            else if (e.KeyChar == ',' && (sender as System.Windows.Forms.TextBox).Text.Contains(','))
             {
                 // Cancelar el evento si el TextBox ya tiene un punto decimal
                 e.Handled = true;
@@ -308,7 +313,7 @@ namespace WinForm
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
             aModificar = false;
-
+            sinModificarImagen = false;
             string url;
             string urlEscapada;
             //--
@@ -405,6 +410,7 @@ namespace WinForm
 
         private void btnModificarImagen_Click(object sender, EventArgs e)
         {
+            sinModificarImagen = false;
             aModificar = true;
             string url;
             string urlEscapada;
@@ -590,7 +596,7 @@ namespace WinForm
             
             
             
-            lista[imagenModificar] = "placeHolder.jpeg";
+            lista[imagenModificar] = rutaImagen;
             
             pbxImagen.Invalidate();
             pbxImagen.Update();

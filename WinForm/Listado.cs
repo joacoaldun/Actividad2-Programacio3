@@ -483,5 +483,13 @@ namespace WinForm
         {
 
         }
+
+        private void btnVerDescripcion_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado = new Articulo();
+            seleccionado = (Articulo)dgvListaArticulos.CurrentRow.DataBoundItem;
+            Descripcion descripcion = new Descripcion(seleccionado);
+            descripcion.ShowDialog();
+        }
     }
 }
